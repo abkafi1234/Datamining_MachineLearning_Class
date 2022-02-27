@@ -1,0 +1,6 @@
+This repo is made for the students for Daffodil international university of Datamining and machine learning course. This repo consists of different files.
+mainly focuses on machine learning in python. 
+
+File:
+  1. Pandas.ipynb : It shows some basics of Pandas Dataframe. 
+  2. Sklearn.ipynb: It is a introduction to sklearn library for machine learning and consists of some ml algorithms and encodings. 
