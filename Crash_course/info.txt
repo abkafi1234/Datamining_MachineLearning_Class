@@ -1,1 +1,1 @@
-
+This dir contains the ipynb files form the youtube crash course 
