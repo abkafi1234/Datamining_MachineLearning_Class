@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Why Measure Distance?}{3}{0}{1}
+\beamer@sectionintoc {2}{Euclidean Distance}{5}{0}{2}
+\beamer@sectionintoc {3}{Manhattan Distance}{10}{0}{3}
+\beamer@sectionintoc {4}{Jaccard Index}{15}{0}{4}
+\beamer@sectionintoc {5}{Minkowski Distance}{20}{0}{5}
+\beamer@sectionintoc {6}{Cosine Similarity}{25}{0}{6}
+\beamer@sectionintoc {7}{Some More Distance Measures}{31}{0}{7}

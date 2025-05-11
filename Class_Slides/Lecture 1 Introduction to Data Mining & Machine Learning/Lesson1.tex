@@ -1,0 +1,204 @@
+\documentclass{beamer}
+\usepackage{hyperref}
+
+% Theme and settings
+\usetheme{metropolis}
+\usecolortheme{default}
+
+
+
+% Title and author information
+
+
+\title{Lesson 1: Introduction to Data Mining}
+\author{}
+\date{}
+% Change to small, footnotesize, scriptsize, etc.
+
+\begin{document}
+
+% Title slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+% Table of contents
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% Section 1
+\section{Introduction}
+\begin{frame}{Definition and importance of data mining}
+    \begin{itemize}
+        \item Definition of Data Mining: Data mining refers to the process of discovering patterns, relationships, and valuable insights from large datasets. It is also known as knowledge discovery from data (KDD).
+        \item Importance in modern applications : Data mining is essential for \MakeUppercase{transforming vast amounts of raw data into valuable knowledge}, aiding decision-making in business, science, and daily life.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Evolution of information technology leading to data mining}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.6\textwidth]{Evolution_system.png}
+        \caption{Evolution of Information Technology}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Fundamental concepts and techniques}
+    \begin{itemize}
+        \item Data Preprocessing – Cleaning, integrating, transforming, and selecting data for analysis.
+        \item Classification – Categorizing data into predefined groups based on patterns.
+        \item Clustering – Grouping similar data points together without predefined categories.
+        \item Association Rule Mining – Identifying relationships between items in large datasets (e.g., market basket analysis).
+        \item Regression Analysis – Predicting numerical values based on historical data trends.
+        \item Anomaly Detection – Discovering unusual or unexpected data patterns.
+  \end{itemize}
+\end{frame}
+
+% Section 2
+\section{Necessity of Data Mining}
+\begin{frame}{Applications of Data Mining}
+    \begin{itemize}
+        \item Business Intelligence
+        \item Healthcare
+        \item Marketing
+        \item And many more...
+    \end{itemize}
+\end{frame}
+
+\section{Data Mining as an Evolution of Information Technology}
+\begin{frame}{Applications of Data Mining}
+    \begin{itemize}
+        \item Business Intelligence
+        \item Healthcare
+        \item Marketing
+    \end{itemize}
+\end{frame}
+
+
+\section{Definition and Process of Knowledge Discovery}
+\begin{frame}{Applications of Data Mining}
+    \begin{itemize}
+        \item Business Intelligence
+        \item Healthcare
+        \item Marketing
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{The KDD Process}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.6\textwidth]{KDD process.png}
+        \caption{KDD (knowledge discovery from data) Process}
+    \end{figure}
+\end{frame}
+
+
+\section{Types of Data That Can Be Mined}
+\begin{frame}{Data types}
+    \begin{itemize}
+\item Database data
+
+\item Data warehouse data (OLAP and multidimensional analysis)
+
+\item Transactional data 
+
+\item Other data types
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Data types (continued)}
+    \begin{itemize}
+\item Database Data – Structured data stored in relational databases, managed using query languages like SQL.
+
+\item Data Warehouse Data – Large collections of integrated, historical data stored for analytical processing.
+
+\item Transactional Data – Records of transactions, such as sales or purchases, often used for pattern recognition (e.g., market basket analysis).
+
+\item Data Streams – Continuously generated data, such as sensor readings or real-time financial transactions.
+
+\item Sequence Data – Ordered data, including time-series or biological sequences.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Data types (continued)}
+    \begin{itemize}
+\item Spatial Data – Geographic or location-based data, such as maps and satellite imagery.
+
+\item Text Data – Unstructured textual data, like documents, emails, and online articles.
+
+\item Multimedia Data – Image, video, and audio data, often requiring specialized mining techniques.
+
+\item Web Data – Information from the internet, including web pages, social media, and hyperlinks.
+
+\item Graph and Network Data – Data representing relationships between entities, such as social networks or communication graphs.
+    \end{itemize}
+\end{frame}
+
+
+\section{Applications and Challenges in Data Mining}
+
+\begin{frame}{Types of Data Mining}
+    \begin{itemize}
+        \item Descriptive
+        \item predictive
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Descriptive Data Mining}
+Descriptive Data Mining – Focuses on summarizing and analyzing data to identify patterns, correlations, and trends. It is used for clustering, association rule mining, and anomaly detection. Examples include market basket analysis and customer segmentation.
+\end{frame}
+\begin{frame}{Predicting Data Mining}
+Predictive Data Mining – Involves using historical data to make predictions about future outcomes. Techniques like classification, regression, and time-series analysis fall under this category. Common applications include fraud detection, stock market forecasting, and medical diagnosis.
+\end{frame}
+
+\section{Introduction to Mahcine Learning}
+\begin{frame}{Machine Learning}
+    \begin{itemize}
+        \item Definition: Machine learning is a subset of artificial intelligence that enables systems to learn from data and improve their performance over time without explicit programming.
+        \item Importance: Machine learning is crucial for automating tasks, making predictions, and extracting insights from large datasets.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Types of Machine Learning}
+    \begin{itemize}
+        \item Supervised Learning: Involves training a model on labeled data, where the input-output pairs are known. Examples include classification and regression tasks.
+        \item Unsupervised Learning: Involves training a model on unlabeled data, where the system identifies patterns and structures without predefined labels. Examples include clustering and dimensionality reduction.
+        \item Reinforcement Learning: Involves training an agent to make decisions by interacting with an environment, receiving feedback in the form of rewards or penalties.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Important steps in Machine Learning}
+    \begin{itemize}
+        \item Data Collection: Gathering relevant data from various sources.
+        \item Data Preprocessing: Cleaning, transforming, and preparing data for analysis.
+        \item Feature Selection: Identifying the most relevant features for the model.
+        \item Model Selection: Choosing the appropriate algorithm for the task.
+        \item Model Training: Using algorithms to train the model on the prepared data.
+        \item Model Evaluation: Assessing the model's performance using metrics like accuracy, precision, and recall.
+        \item Model Deployment: Implementing the trained model in real-world applications.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Biologically Inspired Algorithms [Extra]}
+    \begin{itemize}
+        \item Genetic Algorithms: Optimization algorithms inspired by the process of natural selection, used for solving complex problems.
+        \item Neural Networks: Computational models inspired by the human brain, used for tasks like image recognition and natural language processing.
+        \item Swarm Intelligence: Algorithms inspired by the collective behavior of social organisms, such as ants or bees, used for optimization and problem-solving.
+        \item Evolutionary Learning: This approach mimics natural selection to optimize machine learning models. Algorithms evolve by iteratively selecting the best solutions, mutating and combining them to improve performance over generations.
+    \end{itemize}
+\end{frame}
+
+% Closing slide
+\begin{frame}{Conclusion}
+Think: In a world driven by data, how does the ability to extract meaningful patterns shape our understanding, decisions, and future innovations?
+
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+
+\end{document}

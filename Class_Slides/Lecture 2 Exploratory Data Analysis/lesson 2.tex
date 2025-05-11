@@ -1,0 +1,164 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+% \usepackage{fontspec} % Needed for Unicode, if using emojis
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\title{Exploratory Data Analysis (EDA)}
+\subtitle{Theory and Math Behind Key Concepts}
+% \author{Your Name}
+\date{}
+
+\begin{document}
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% --- Slide: Missing Values ---
+\section{Missing Values}
+\begin{frame}{Missing Values}
+\textbf{Definition:} Data entries where values are not recorded. \medskip
+
+\textbf{Types:}
+\begin{itemize}
+    \item MCAR – Missing Completely at Random
+    \item MAR – Missing at Random
+    \item MNAR – Missing Not at Random
+\end{itemize}
+
+\textbf{Imputation Example: Mean}
+\[
+x_{\text{imputed}} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]
+\end{frame}
+
+% --- Slide: Outliers ---
+\section{Outliers}
+\begin{frame}{Outliers}
+\textbf{Definition:} Observations significantly different from the rest.
+
+\textbf{Detection Methods:}
+\begin{itemize}
+    \item \textbf{IQR Method:}
+    \[
+    \text{IQR} = Q_3 - Q_1,\quad 
+    \text{Lower} = Q_1 - 1.5 \times \text{IQR},\quad
+    \text{Upper} = Q_3 + 1.5 \times \text{IQR}
+    \]
+    \item \textbf{Z-Score Method:}
+    \[
+    z_i = \frac{x_i - \mu}{\sigma}
+    \]
+    \item If \( |z_i| > 3 \), it's an outlier.
+\end{itemize}
+\end{frame}
+
+% --- Slide: Irrelevant / Redundant Data ---
+\section{Irrelevant / Redundant Data}
+\begin{frame}{Irrelevant or Redundant Data}
+\textbf{Definition:} Features that add little or no useful information.
+
+\textbf{Methods:}
+\begin{itemize}
+    \item Correlation Analysis
+    \item Variance Thresholding
+    \item Principal Component Analysis (PCA)
+\end{itemize}
+
+\textbf{Pearson Correlation:}
+\[
+\rho_{X,Y} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}
+\]
+\end{frame}
+
+% --- Slide: Data Type Correction ---
+\section{Data Type Correction}
+\begin{frame}{Data Type Correction}
+\textbf{Goal:} Ensure appropriate types for modeling (e.g., integers, floats, categories).
+
+\textbf{Examples:}
+\begin{itemize}
+    \item Convert strings to \texttt{datetime}
+    \item Map numerical codes to categories
+    \item Cast floats to integers (if discrete)
+\end{itemize}
+\end{frame}
+
+% --- Slide: Categorical Variables ---
+\section{Categorical Variables}
+\begin{frame}{Categorical Variables}
+\textbf{Types:}
+\begin{itemize}
+    \item Nominal (e.g., color)
+    \item Ordinal (e.g., education level)
+\end{itemize}
+
+\textbf{Encoding Methods:}
+\begin{itemize}
+    \item \textbf{One-Hot Encoding:} 
+    \[
+    \text{Red} \rightarrow [1, 0, 0],\quad \text{Blue} \rightarrow [0, 1, 0]
+    \]
+    \item \textbf{Label Encoding:} 
+    \[
+    \text{Low} = 0,\quad \text{Medium} = 1,\quad \text{High} = 2
+    \]
+\end{itemize}
+\end{frame}
+
+% --- Slide: Normalization ---
+\section{Normalization and Standardization}
+\begin{frame}{Normalization}
+\textbf{Definition:} Rescale features to a fixed range, usually [0, 1].
+
+\textbf{Formula:}
+\[
+x'_i = \frac{x_i - \min(x)}{\max(x) - \min(x)}
+\]
+
+\textbf{Use case:} Distance-based models like KNN, K-Means.
+\end{frame}
+
+% --- Slide: Standardization ---
+\begin{frame}{Standardization}
+\textbf{Definition:} Rescale features to mean 0 and standard deviation 1.
+
+\textbf{Formula:}
+\[
+x'_i = \frac{x_i - \mu}{\sigma}
+\]
+
+\textbf{Use case:} Models assuming normal distribution (e.g., PCA, linear regression).
+\end{frame}
+
+% --- Slide: Summary Table ---
+\section{Summary Table}
+\begin{frame}{EDA Summary Table}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Step} & \textbf{Method} & \textbf{Math} \\ \midrule
+Missing Values & Mean Imputation & \( x' = \frac{1}{n} \sum x_i \) \\
+Outliers & IQR, Z-score & \( z = \frac{x - \mu}{\sigma} \) \\
+Redundant Data & Correlation, PCA & \( \rho = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y} \) \\
+Data Types & Type casting & N/A \\
+Categorical & One-Hot/Label Encoding & Encoding to vectors or integers \\
+Normalization & Min-Max Scaling & \( x' = \frac{x - \min(x)}{\max(x) - \min(x)} \) \\
+Standardization & Z-score Scaling & \( x' = \frac{x - \mu}{\sigma} \) \\
+\bottomrule
+\end{tabular}
+\end{frame}
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+
+\end{document}

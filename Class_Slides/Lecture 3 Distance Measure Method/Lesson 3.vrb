@@ -1,0 +1,11 @@
+\frametitle{Manual Calculation}
+\small
+\begin{verbatim}
+from math import sqrt
+
+TP, TN, FP, FN = 70, 50, 10, 5
+numerator = (TP * TN) - (FP * FN)
+denominator = sqrt((TP + FP)*(TP + FN)*(TN + FP)*(TN + FN))
+mcc = numerator / denominator if denominator != 0 else 0
+print("MCC (manual):", mcc)
+\end{verbatim}

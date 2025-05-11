@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Overview of Key Metrics}{3}{0}{1}
+\beamer@sectionintoc {2}{MSE (Mean Squared Error)}{5}{0}{2}
+\beamer@sectionintoc {3}{RMSE (Root Mean Squared Error)}{8}{0}{3}
+\beamer@sectionintoc {4}{R² (Coefficient of Determination)}{11}{0}{4}
+\beamer@sectionintoc {5}{ROC-AUC (Classification)}{20}{0}{5}
+\beamer@sectionintoc {6}{Summary}{23}{0}{6}
+\beamer@sectionintoc {7}{More Important Metrics}{25}{0}{7}

@@ -1,0 +1,445 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+% \usepackage{fontspec} % Needed for Unicode, if using emojis
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Measures of Distance in Data Mining }
+\subtitle{How similar are two data points?}
+% \author{Your Name}
+\date{}
+
+\begin{document}
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+
+% --- Why Measure Distance ---
+\section{Why Measure Distance?}
+\begin{frame}{Why Measure Distance? (Theory)}
+\textbf{Distance measures} quantify the similarity or dissimilarity between data points. They are foundational in:
+\begin{itemize}
+    \item Clustering (e.g., K-Means, Hierarchical)
+    \item Classification (e.g., K-Nearest Neighbors)
+    \item Anomaly detection
+    \item Information retrieval and recommender systems
+\end{itemize}
+Choosing the right distance measure affects model accuracy and interpretability.
+\end{frame}
+
+% === EUCLIDEAN DISTANCE ===
+\section{Euclidean Distance}
+\begin{frame}{Euclidean Distance (Theory)}
+\textbf{Euclidean distance} is the most common measure of straight-line distance in continuous space.
+\begin{itemize}
+    \item Sensitive to magnitude and scale
+    \item Assumes continuous, real-valued attributes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Euclidean Distance (Math)}
+Given two points \( A = (x_1, x_2, \dots, x_n) \) and \( B = (y_1, y_2, \dots, y_n) \), the Euclidean distance is:
+\[
+d(A, B) = \sqrt{\sum_{i=1}^{n}(x_i - y_i)^2}
+\]
+\end{frame}
+
+\begin{frame}{Euclidean Distance (Example)}
+Given \( A = (2, 4) \), \( B = (5, 8) \):
+
+\[
+d(A, B) = \sqrt{(2 - 5)^2 + (4 - 8)^2}
+= \sqrt{(-3)^2 + (-4)^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+\]
+\end{frame}
+
+\begin{frame}{Euclidean Distance (Use Case)}
+\textbf{Use Case:} K-Means Clustering
+\begin{itemize}
+    \item Used to assign points to the nearest centroid
+    \item Ideal when clusters are spherical and scales are normalized
+\end{itemize}
+\end{frame}
+
+% === MANHATTAN DISTANCE ===
+\section{Manhattan Distance}
+\begin{frame}{Manhattan Distance (Theory)}
+Also called **Taxicab** or **City Block Distance**:
+\begin{itemize}
+    \item Measures distance by summing absolute differences
+    \item Better for high-dimensional, sparse data
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Manhattan Distance (Math)}
+\[
+d(A, B) = \sum_{i=1}^{n} |x_i - y_i|
+\]
+Where \( A = (x_1, \dots, x_n) \), \( B = (y_1, \dots, y_n) \)
+\end{frame}
+\begin{frame}{Manhattan Distance (Example)}
+Given \( A = (2, 4) \), \( B = (5, 8) \):
+
+\[
+d(A, B) = |2 - 5| + |4 - 8| = 3 + 4 = 7
+\]
+\end{frame}
+
+\begin{frame}{Manhattan Distance (Use Case)}
+\textbf{Use Case:} L1-Regularized models (e.g., Lasso Regression)
+\begin{itemize}
+    \item Promotes sparsity
+    \item Preferred when feature differences are linear or additive
+\end{itemize}
+\end{frame}
+
+% === JACCARD INDEX ===
+\section{Jaccard Index}
+\begin{frame}{Jaccard Index (Theory)}
+\textbf{Jaccard Similarity} measures overlap between sets.
+\begin{itemize}
+    \item Works with binary or categorical data
+    \item Good for market basket analysis, document similarity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Jaccard Index (Math)}
+\[
+J(A, B) = \frac{|A \cap B|}{|A \cup B|}
+\]
+\[
+d(A, B) = 1 - J(A, B)
+\]
+\end{frame}
+\begin{frame}{Jaccard Index (Example)}
+Let \( A = \{1, 2, 3, 5\} \), \( B = \{2, 3, 4, 6\} \)
+
+\[
+A \cap B = \{2, 3\},\quad A \cup B = \{1, 2, 3, 4, 5, 6\}
+\]
+
+\[
+J(A, B) = \frac{2}{6} = 0.33,\quad d(A, B) = 1 - 0.33 = 0.67
+\]
+\end{frame}
+
+\begin{frame}{Jaccard Index (Use Case)}
+\textbf{Use Case:} Recommender Systems
+\begin{itemize}
+    \item Used to compare user interests (e.g., liked items)
+    \item Suitable for sparse, binary user-item matrices
+\end{itemize}
+\end{frame}
+
+% === MINKOWSKI DISTANCE ===
+\section{Minkowski Distance}
+\begin{frame}{Minkowski Distance (Theory)}
+Generalized distance metric that includes:
+\begin{itemize}
+    \item Euclidean distance when \( p = 2 \)
+    \item Manhattan distance when \( p = 1 \)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Minkowski Distance (Math)}
+\[
+d(A, B) = \left( \sum_{i=1}^{n} |x_i - y_i|^p \right)^{1/p}
+\]
+Where \( p \in \mathbb{R},\ p \geq 1 \)
+\end{frame}
+\begin{frame}{Minkowski Distance (Example)}
+Given \( A = (1, 2) \), \( B = (4, 6) \), with \( p = 3 \):
+
+\[
+d(A, B) = \left(|1 - 4|^3 + |2 - 6|^3\right)^{1/3}
+= \left(27 + 64\right)^{1/3} = (91)^{1/3} \approx 4.481
+\]
+\end{frame}
+
+\begin{frame}{Minkowski Distance (Use Case)}
+\textbf{Use Case:} Customizable distance metric in KNN
+\begin{itemize}
+    \item Choose \( p \) based on desired sensitivity
+    \item Flexible for tuning similarity in various data distributions
+\end{itemize}
+\end{frame}
+
+% === COSINE SIMILARITY ===
+\section{Cosine Similarity}
+\begin{frame}{Cosine Similarity (Theory)}
+\textbf{Cosine Similarity} measures the cosine of the angle between two vectors.
+\begin{itemize}
+    \item Focuses on orientation, not magnitude
+    \item Ideal for high-dimensional, sparse data like text
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cosine Similarity (Math)}
+\[
+\text{Cosine}(A, B) = \frac{A \cdot B}{\|A\| \cdot \|B\|} = \frac{\sum_{i=1}^{n} x_i y_i}{\sqrt{\sum x_i^2} \cdot \sqrt{\sum y_i^2}}
+\]
+\end{frame}
+\begin{frame}{Cosine Similarity (Example)}
+\textbf{Example 1: Similar Vectors}
+
+Let \( A_1 = (1, 2, 3) \), \( B_1 = (2, 4, 6) \)
+
+\[
+\cos(\theta) = \frac{1\cdot2 + 2\cdot4 + 3\cdot6}{\sqrt{1^2+2^2+3^2} \cdot \sqrt{2^2+4^2+6^2}} = \frac{28}{\sqrt{14} \cdot \sqrt{56}} = 1
+\]
+
+\textit{Perfect similarity — linearly dependent or colinear (same direction)}
+
+\vspace{1em}
+
+\textbf{Example 2: Dissimilar Vectors}
+
+Let \( A_2 = (1, 0) \), \( B_2 = (0, 1) \)
+
+\[
+\cos(\theta) = \frac{1\cdot0 + 0\cdot1}{\sqrt{1^2+0^2} \cdot \sqrt{0^2+1^2}} = 0
+\]
+
+\textit{No similarity — orthogonal vectors.}
+\end{frame}
+
+
+\begin{frame}{Cosine Similarity (Use Case)}
+\textbf{Use Case:} Document Similarity in NLP
+\begin{itemize}
+    \item Used to compare TF-IDF or word embeddings
+    \item Common in search engines, chatbots, and plagiarism detection
+\end{itemize}
+\end{frame}
+
+% --- Final Summary ---
+\begin{frame}{Summary Table}
+\footnotesize
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Metric} & \textbf{Data Type} & \textbf{Math Form} & \textbf{Use Case} \\
+\midrule
+Euclidean & Numeric & \( \sqrt{\sum (x_i - y_i)^2} \) & K-Means Clustering \\
+Manhattan & Numeric & \( \sum |x_i - y_i| \) & Lasso Regression \\
+Jaccard & Set/Binary & \( \frac{|A \cap B|}{|A \cup B|} \) & Recommender Systems \\
+Minkowski & Numeric & \( (\sum |x_i - y_i|^p)^{1/p} \) & Custom KNN \\
+Cosine & Vector/High-dim & \( \frac{A \cdot B}{\|A\| \|B\|} \) & Text Similarity \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\section{Some More Distance Measures}
+\begin{frame}{What is Mahalanobis Distance?}
+  \begin{itemize}
+    \item Measures distance between a point and a distribution
+    \item Accounts for correlation between variables
+    \item Scale-invariant
+    \item More robust than Euclidean distance for multivariate data
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Intuition}
+  \begin{itemize}
+    \item Euclidean distance treats all variables equally
+    \item Mahalanobis considers variable correlation and scale
+    \item Tells how many standard deviations a point is from the mean
+    \item Adapts to the shape and orientation of the data
+  \end{itemize}
+\end{frame}
+\begin{frame}{Mathematical Formulation}
+  Given:
+  \begin{itemize}
+    \item Point: \( \mathbf{x} \)
+    \item Mean: \( \boldsymbol{\mu} \)
+    \item Covariance: \( \Sigma \)
+  \end{itemize}
+  \vspace{0.5em}
+  \[
+    D_M(x) = \sqrt{(\mathbf{x} - \boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{x} - \boldsymbol{\mu})}
+  \]
+  \begin{itemize}
+    \item \( \Sigma^{-1} \): Inverse of covariance matrix
+    \item Output is a scalar distance
+  \end{itemize}
+\end{frame}
+\begin{frame}{Properties}
+  \begin{itemize}
+    \item Accounts for scale and correlation of features
+    \item Reduces to Euclidean distance if \( \Sigma = I \)
+    \item \( D_M(x) = 0 \): Point at mean
+    \item \( D_M(x) = 1 \): One standard deviation away
+    \item Useful for identifying multivariate outliers
+  \end{itemize}
+\end{frame}
+\begin{frame}{Applications}
+  \begin{itemize}
+    \item Outlier detection
+    \item Clustering (e.g., GMMs)
+    \item Multivariate hypothesis testing
+    \item Pattern recognition (e.g., face recognition)
+    \item Quality control in industrial settings
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Example Calculation}
+  \begin{itemize}
+    \item Mean: \( \boldsymbol{\mu} = \begin{bmatrix} 5 \\ 3 \end{bmatrix} \)
+    \item Covariance: \( \Sigma = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix} \)
+    \item Point: \( \mathbf{x} = \begin{bmatrix} 6 \\ 4 \end{bmatrix} \)
+  \end{itemize}
+  \vspace{0.5em}
+  \[
+    D_M(x) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}
+  \]
+\end{frame}
+\begin{frame}[fragile]{Python Implementation}
+    \small
+\begin{verbatim}
+import numpy as np
+from scipy.spatial import distance
+
+data = np.array([[2, 3], [3, 5], [4, 8], [5, 11]])
+x = np.array([3, 7])
+mean = np.mean(data, axis=0)
+cov = np.cov(data, rowvar=False)
+inv_cov = np.linalg.inv(cov)
+
+# Manual calculation
+diff = x - mean
+d_mahal = np.sqrt(diff.T @ inv_cov @ diff)
+
+# Using scipy
+d_scipy = distance.mahalanobis(x, mean, inv_cov)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Tips \& Best Practices}
+  \begin{itemize}
+    \item Ensure data follows approximately multivariate normal distribution
+    \item Handle singular covariance matrices (regularization, PCA)
+    \item Normalize data if using with other distance metrics
+    \item Be cautious with high-dimensional data (curse of dimensionality)
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{What is MCC?}
+  \begin{itemize}
+    \item Metric for evaluating binary (and multiclass) classification
+    \item Considers: TP, TN, FP, FN
+    \item Balanced measure, even with class imbalance
+    \item Interpreted as a correlation coefficient
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Intuition}
+  \begin{itemize}
+    \item Accuracy fails in imbalanced datasets
+    \item MCC reflects the relationship between predictions and ground truth
+    \item Robust and symmetric
+  \end{itemize}
+  \vspace{0.5em}
+  \textbf{Values:}
+  \begin{itemize}
+    \item 1 = Perfect prediction
+    \item 0 = No better than random
+    \item -1 = Total disagreement
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{MCC Formula}
+  \[
+    \text{MCC} = \frac{(TP \cdot TN) - (FP \cdot FN)}{
+    \sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}}
+  \]
+  \begin{itemize}
+    \item If denominator = 0, MCC is defined as 0
+    \item Normalized between -1 and 1
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Properties}
+  \begin{itemize}
+    \item \(-1 \leq \text{MCC} \leq 1\)
+    \item Handles class imbalance
+    \item Invariant to label flipping
+    \item More reliable than accuracy or F1-score alone
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Applications}
+  \begin{itemize}
+    \item Medical diagnostics
+    \item Fraud detection
+    \item Binary classifiers in NLP, vision
+    \item Model selection and benchmarking
+    \item Extended to multiclass and multilabel problems
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Example Calculation}
+  \textbf{Confusion Matrix:}
+  \begin{itemize}
+    \item TP = 70, TN = 50
+    \item FP = 10, FN = 5
+  \end{itemize}
+  \[
+    \text{MCC} = \frac{(70 \cdot 50) - (10 \cdot 5)}{
+    \sqrt{(70+10)(70+5)(50+10)(50+5)}}
+  \]
+  \[
+    = \frac{3450}{\sqrt{19800000}} \approx 0.776
+  \]
+\end{frame}
+
+\begin{frame}[fragile]{Python Implementation}
+\begin{verbatim}
+from sklearn.metrics import matthews_corrcoef
+
+y_true = [1, 1, 0, 1, 0, 0, 1]
+y_pred = [1, 0, 0, 1, 0, 1, 1]
+
+mcc = matthews_corrcoef(y_true, y_pred)
+print("MCC:", mcc)
+\end{verbatim}
+\end{frame}
+
+% Slide 8: Manual Python
+\begin{frame}[fragile]{Manual Calculation}
+    \small
+\begin{verbatim}
+from math import sqrt
+
+TP, TN, FP, FN = 70, 50, 10, 5
+numerator = (TP * TN) - (FP * FN)
+denominator = sqrt((TP + FP)*(TP + FN)*(TN + FP)*(TN + FN))
+mcc = numerator / denominator if denominator != 0 else 0
+print("MCC (manual):", mcc)
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Tips \& Best Practices}
+  \begin{itemize}
+    \item Use MCC for imbalanced datasets
+    \item Report MCC with other metrics (e.g., AUC, F1)
+    \item Useful in production to track model drift
+    \item Preferable when false positives/negatives carry different costs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}

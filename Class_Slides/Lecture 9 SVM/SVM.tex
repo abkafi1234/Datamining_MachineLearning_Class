@@ -1,0 +1,243 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Performance Analysis in Machine Learning}
+\subtitle{}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% Slide 1: Introduction
+\begin{frame}{What is SVM?}
+    \begin{itemize}
+        \item A supervised learning algorithm for classification and regression.
+        \item Finds an optimal hyperplane to separate data into categories.
+        \item Uses support vectors—critical data points affecting the boundary.
+    \end{itemize}
+\end{frame}
+
+% Slide 2: How SVM Works
+\begin{frame}{How SVM Works}
+    \begin{enumerate}
+        \item Data points are plotted in an n-dimensional space.
+        \item A hyperplane is found that maximizes separation margin.
+        \item If non-linearly separable, kernel trick is applied.
+    \end{enumerate}
+\end{frame}
+
+% Slide 3: Types of SVM
+\begin{frame}{Types of SVM}
+    \begin{itemize}
+        \item \textbf{Linear SVM}: Works when data is separable by a straight line.
+        \item \textbf{Non-Linear SVM}: Uses kernel methods to project data into higher dimensions.
+    \end{itemize}
+\end{frame}
+
+% Slide 4: Kernel Functions
+\begin{frame}{Common Kernel Functions}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Kernel Type} & \textbf{Equation} \\
+            \hline
+            Linear & \( K(x, y) = x^T y \) \\
+            Polynomial & \( K(x, y) = (x^T y + c)^d \) \\
+            RBF & \( K(x, y) = \exp(-\gamma \|x - y\|^2) \) \\
+            Sigmoid & \( K(x, y) = \tanh(\alpha x^T y + c) \) \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+% Slide 5: Python Implementation
+\begin{frame}[fragile]{Python Implementation of SVM}
+    \begin{block}{Example Code}
+        \small 
+        \begin{verbatim}
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+
+data = datasets.load_iris()
+X, y = data.data, data.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+svm_model = SVC(kernel='rbf', C=1.0, gamma='scale')
+svm_model.fit(X_train, y_train)
+
+accuracy = accuracy_score(y_test, svm_model.predict(X_test))
+print(f"Accuracy: {accuracy:.2f}")
+        \end{verbatim}
+    \end{block}
+\end{frame}
+
+% Slide 6: Pros & Cons
+\begin{frame}{Advantages \& Disadvantages}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Advantages}
+        \begin{itemize}
+            \item Works well with high-dimensional data.
+            \item Handles cases where features outnumber samples.
+            \item Effective for complex classification tasks.
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \textbf{Disadvantages}
+        \begin{itemize}
+            \item Computationally expensive for large datasets.
+            \item Requires careful tuning of parameters (C, gamma).
+            \item Sensitive to noisy data.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% Slide 7: Applications
+\begin{frame}{Applications of SVM}
+    \begin{itemize}
+        \item Image classification (e.g., face recognition).
+        \item Bioinformatics (e.g., cancer detection).
+        \item Text categorization (e.g., spam filtering).
+        \item Financial predictions (e.g., stock market trends).
+    \end{itemize}
+\end{frame}
+
+
+% Section: mathematical example of SVM
+\section{Mathematical Example of SVM}
+% Frame 1: Dataset
+\begin{frame}{Dataset}
+We are given a binary classification problem:
+
+\textbf{Positive Class (+1):}
+\begin{itemize}
+    \item $(3, 1)$
+    \item $(3, -1)$
+    \item $(6, 1)$
+    \item $(6, -1)$
+\end{itemize}
+
+\textbf{Negative Class (-1):}
+\begin{itemize}
+    \item $(1, 0)$
+    \item $(0, 1)$
+    \item $(0, -1)$
+    \item $(-1, 0)$
+\end{itemize}
+\end{frame}
+
+% Frame 2: Augmentation
+\begin{frame}{Augmented Vectors}
+To include the bias in the weight vector, augment the inputs:
+
+\[
+\tilde{x}_i = [x_{i1}, x_{i2}, 1]
+\]
+
+Examples:
+\begin{align*}
+(3, 1) &\rightarrow (3, 1, 1) \\
+(0, -1) &\rightarrow (0, -1, 1)
+\end{align*}
+\end{frame}
+
+% Frame 3: Chosen Support Vectors
+\begin{frame}{Simplified Problem (3 Support Vectors)}
+Choose 3 support vectors to simplify the system:
+
+\[
+\begin{aligned}
+\tilde{x}_1 &= (3, 1, 1), & y_1 &= +1 \\
+\tilde{x}_2 &= (3, -1, 1), & y_2 &= +1 \\
+\tilde{x}_3 &= (1, 0, 1), & y_3 &= -1
+\end{aligned}
+\]
+\end{frame}
+
+% Frame 4: Dual Equations
+\begin{frame}{Dual Form Equations}
+We solve:
+\[
+\sum_j \alpha_j y_j (\tilde{x}_j \cdot \tilde{x}_i) = y_i
+\]
+
+Resulting system:
+\[
+\begin{aligned}
+\frac{27}{4} \alpha_1 + \frac{25}{4} \alpha_2 - 4 \alpha_3 &= 1 \\
+\frac{25}{4} \alpha_1 + \frac{27}{4} \alpha_2 - 4 \alpha_3 &= 1 \\
+-4 \alpha_1 - 4 \alpha_2 + 2 \alpha_3 &= -1
+\end{aligned}
+\]
+\end{frame}
+
+% Frame 5: Solving for Alpha
+\begin{frame}{Solution for Alphas}
+Solving the system:
+
+\[
+\boxed{
+\alpha_1 = \frac{3}{4}, \quad
+\alpha_2 = \frac{3}{4}, \quad
+\alpha_3 = \frac{7}{2}
+}
+\]
+\end{frame}
+
+% Frame 6: Compute Weight Vector
+\begin{frame}{Compute Weight Vector}
+\[
+\tilde{w} = \sum_{i=1}^{3} \alpha_i y_i \tilde{x}_i
+\]
+
+\[
+\tilde{w} = \frac{3}{4}(3, 1, 1) + \frac{3}{4}(3, -1, 1) - \frac{7}{2}(1, 0, 1)
+= (1, 0, -2)
+\]
+
+\[
+\Rightarrow w = (1, 0), \quad b = -2
+\]
+\end{frame}
+
+% Frame 7: Decision Boundary
+\begin{frame}{Decision Boundary}
+SVM Classifier:
+
+\[
+f(x) = w^T x + b = x_1 - 2
+\]
+
+Decision boundary:
+\[
+\boxed{x_1 = 2}
+\]
+
+A vertical line separating the two classes.
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}

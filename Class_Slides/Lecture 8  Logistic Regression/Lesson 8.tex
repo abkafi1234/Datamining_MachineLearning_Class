@@ -1,0 +1,254 @@
+\documentclass{beamer}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usetheme{metropolis} % Clean modern look
+\title{Logistic Regression}
+\subtitle{}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+
+
+\section{Introduction and Theory}
+
+\begin{frame}{What is Logistic Regression?}
+\begin{itemize}
+  \item A statistical model for binary classification.
+  \item Predicts the probability of class membership.
+  \item Output: probability, mapped to classes using sigmoid.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Logistic vs Linear Regression}
+\begin{itemize}
+  \item \textbf{Linear Regression:} Predicts continuous outcomes.
+  \item \textbf{Logistic Regression:} Predicts probability of class membership.
+  \item Uses the sigmoid function:
+  \[
+  \sigma(z) = \frac{1}{1 + e^{-z}}, \quad z = \beta_0 + \beta_1 x_1 + \dots + \beta_n x_n
+  \]
+\end{itemize}
+\end{frame}
+
+\section{Types and Assumptions}
+
+\begin{frame}{Types of Logistic Regression}
+\begin{itemize}
+  \item \textbf{Binary}: Two classes (e.g., spam or not spam).
+  \item \textbf{Multinomial}: Three or more unordered classes.
+  \item \textbf{Ordinal}: Ordered categorical outcomes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Assumptions}
+\begin{itemize}
+  \item Binary dependent variable.
+  \item Logit is linear in predictors.
+  \item No multicollinearity.
+  \item Observations are independent.
+  \item Large sample size preferred.
+\end{itemize}
+\end{frame}
+
+\section{Mathematical Example}
+\begin{frame}{Example Dataset: Fruits}
+\begin{table}[h!]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Fruit} & \textbf{Weight (g)} & \textbf{Color Score} & \textbf{Apple? (y)} \\
+\midrule
+1 & 150 & 0.9 & 1 \\
+2 & 180 & 0.8 & 1 \\
+3 & 120 & 0.3 & 0 \\
+4 & 130 & 0.4 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+% Model Formula Slide
+\begin{frame}{Logistic Regression Model}
+\begin{block}{Model Equation}
+We model the probability of a fruit being an apple using:
+\[
+z = \beta_0 + \beta_1 x_1 + \beta_2 x_2
+\]
+\[
+\hat{y} = \sigma(z) = \frac{1}{1 + e^{-z}}
+\]
+\end{block}
+\begin{itemize}
+  \item \( x_1 \): Weight (in grams)
+  \item \( x_2 \): Color score (0 = green, 1 = red)
+\end{itemize}
+\end{frame}
+
+% Coefficients and New Input
+\begin{frame}{Given Coefficients and New Input}
+\begin{itemize}
+  \item Coefficients:
+  \[
+  \beta_0 = -20,\quad \beta_1 = 0.1,\quad \beta_2 = 5
+  \]
+  \item New fruit input:
+  \[
+  x_1 = 160,\quad x_2 = 0.85
+  \]
+\end{itemize}
+\end{frame}
+
+% Math Calculation Slide
+\begin{frame}{Prediction Step-by-Step}
+\begin{block}{Step 1: Compute Linear Combination}
+\[
+z = -20 + 0.1 \cdot 160 + 5 \cdot 0.85 = -20 + 16 + 4.25 = 0.25
+\]
+\end{block}
+
+\begin{block}{Step 2: Apply Sigmoid Function}
+\[
+\hat{y} = \frac{1}{1 + e^{-0.25}} \approx \frac{1}{1 + 0.7788} \approx 0.562
+\]
+\end{block}
+\end{frame}
+
+% Interpretation
+\begin{frame}{Interpretation}
+\begin{itemize}
+  \item The model predicts a probability of \( \hat{y} = 0.562 \).
+  \item With a threshold of 0.5, we classify the fruit as:
+  \[
+  \textbf{Apple (1)}
+  \]
+\end{itemize}
+\end{frame}
+
+
+\section{Implementation}
+
+\begin{frame}[fragile]{Basic Implementation in Python}
+\begin{itemize}
+  \item Uses \texttt{scikit-learn}'s \texttt{LogisticRegression}.
+\end{itemize}
+\begin{block}{Example}
+\begin{verbatim}
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}{Key Hyperparameters}
+\begin{itemize}
+  \item \texttt{penalty}: L1, L2, elasticnet, or none.
+  \item \texttt{C}: Inverse of regularization strength.
+  \item \texttt{solver}: liblinear, saga, lbfgs, etc.
+  \item \texttt{class\_weight}: Deal with imbalance.
+\end{itemize}
+\end{frame}
+
+\section{Model Evaluation}
+
+\begin{frame}{Evaluation Metrics}
+\begin{itemize}
+  \item Accuracy, Precision, Recall, F1 Score.
+  \item Confusion Matrix.
+  \item ROC AUC, Log Loss, Brier Score.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Probability Calibration}
+\begin{itemize}
+  \item Use \texttt{calibration\_curve} or \texttt{CalibratedClassifierCV}.
+  \item Important in risk-sensitive applications.
+\end{itemize}
+\end{frame}
+
+\section{Regularization and Feature Importance}
+
+\begin{frame}{Regularization Techniques}
+\begin{itemize}
+  \item \textbf{L1 (Lasso)}: Feature selection.
+  \item \textbf{L2 (Ridge)}: Shrinks large coefficients.
+  \item \textbf{ElasticNet}: Mix of both.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interpreting Coefficients}
+\begin{itemize}
+  \item Coefficients represent change in log-odds.
+  \item Odds Ratio: \( \text{OR} = e^{\beta} \)
+  \item Standardize features before interpretation.
+\end{itemize}
+\end{frame}
+
+\section{Advanced Topics}
+
+\begin{frame}{Multiclass and Imbalanced Data}
+\begin{itemize}
+  \item Use \texttt{multi\_class='multinomial'} for >2 classes.
+  \item Handle imbalance with:
+  \begin{itemize}
+    \item \texttt{class\_weight='balanced'}
+    \item SMOTE / undersampling
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Diagnostics and Feature Selection}
+\begin{itemize}
+  \item Use VIF to detect multicollinearity.
+  \item Recursive Feature Elimination (RFE).
+  \item Hosmer-Lemeshow test for goodness of fit.
+\end{itemize}
+\end{frame}
+
+\section{Tools and Best Practices}
+
+\begin{frame}{Tools and Libraries}
+\begin{itemize}
+  \item \textbf{Modeling:} \texttt{sklearn.linear\_model}
+  \item \textbf{Metrics:} \texttt{sklearn.metrics}
+  \item \textbf{Visualization:} \texttt{seaborn, matplotlib, yellowbrick}
+  \item \textbf{Feature Selection:} \texttt{SelectFromModel, RFE}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Best Practices}
+\begin{itemize}
+  \item Scale features for regularization.
+  \item Handle class imbalance carefully.
+  \item Evaluate both class labels and probabilities.
+  \item Validate with cross-validation.
+  \item Understand your coefficients.
+\end{itemize}
+\end{frame}
+% Outline Slide
+
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}

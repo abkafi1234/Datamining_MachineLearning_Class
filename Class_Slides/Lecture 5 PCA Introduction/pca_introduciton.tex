@@ -1,0 +1,236 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\usepackage{listings}
+
+\title{PCA Introduction}
+\subtitle{}
+\date{}
+
+\definecolor{codegray}{gray}{0.95}
+\lstset{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    showstringspaces=false
+}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{What is PCA?}
+\begin{itemize}
+    \item Unsupervised dimensionality reduction technique
+    \item Transforms original variables into uncorrelated \textbf{principal components}
+    \item Captures the directions of highest variance
+    \item Common uses: visualization, noise reduction, speeding up ML
+\end{itemize}
+\end{frame}
+
+% Slide: When to Use PCA
+\begin{frame}{When to Use PCA}
+\begin{itemize}
+    \item When you have \textbf{many features} and want to reduce complexity
+    \item Features are \textbf{correlated}
+    \item You want to \textbf{visualize} high-dimensional data
+    \item To help \textbf{improve performance} or reduce overfitting
+\end{itemize}
+\end{frame}
+
+% Slide: Key Concepts
+\begin{frame}{Key Concepts}
+\begin{itemize}
+    \item \textbf{Variance:} Spread of data
+    \item \textbf{Covariance matrix:} Relationship between features
+    \item \textbf{Eigenvectors:} Principal directions
+    \item \textbf{Eigenvalues:} Amount of variance explained
+\end{itemize}
+\end{frame}
+
+% Slide: PCA Steps
+\begin{frame}{PCA Step-by-Step}
+\begin{enumerate}
+    \item \textbf{Standardize} the data
+    \item Compute \textbf{Covariance Matrix}
+    \item Compute \textbf{Eigenvectors and Eigenvalues}
+    \item Select top \textbf{k components}
+    \item \textbf{Transform} the data
+\end{enumerate}
+\end{frame}
+
+\section{The steps}
+\begin{frame}{Step 1: Standardize the Data}
+\small
+\textbf{What:} \\
+Center each feature (mean = 0), scale to unit variance. \\
+\[
+X_{scaled} = \frac{X - \mu}{\sigma}
+\]
+
+\vspace{1em}
+\textbf{Why:} \\
+PCA is scale-sensitive. Without standardization, features with larger magnitudes will dominate the principal components.
+\end{frame}
+
+% Slide 2: Compute Covariance Matrix
+\begin{frame}{Step 2: Compute the Covariance Matrix}
+\small
+\textbf{What:} \\
+Calculate the covariance between each pair of features. \\
+\[
+\mathbf{C} = \frac{1}{n - 1} X^\top X
+\]
+
+\vspace{1em}
+\textbf{Why:} \\
+The covariance matrix reveals the linear relationships between features — essential to find directions of greatest variance.
+\end{frame}
+
+% Slide 3: Compute Eigenvectors and Eigenvalues
+\begin{frame}{Step 3: Compute Eigenvectors and Eigenvalues}
+\small
+\textbf{What:} \\
+Solve the equation: \\
+\[
+\mathbf{C} \mathbf{w} = \lambda \mathbf{w}
+\] 
+Eigenvectors = directions; Eigenvalues = variance explained.
+
+\vspace{1em}
+\textbf{Why:} \\
+To discover the axes (principal components) along which the data varies the most.
+\end{frame}
+
+% Slide 4: Select Top k Components
+\begin{frame}{Step 4: Select Top \( k \) Components}
+\small
+\textbf{What:} \\
+Rank eigenvalues in descending order and pick the top \( k \). \\
+\[
+\text{Retain the first } k \text{ eigenvectors}
+\]
+
+\vspace{1em}
+\textbf{Why:} \\
+To reduce dimensionality while preserving most of the variance (information) in the dataset.
+\end{frame}
+
+% Slide 5: Transform the Data
+\begin{frame}{Step 5: Transform the Data}
+\small
+\textbf{What:} \\
+Project the original data onto the new basis: \\
+\[
+Z = X \cdot W_k
+\]
+
+\vspace{1em}
+\textbf{Why:} \\
+This gives a new set of uncorrelated features in a lower-dimensional space — useful for visualization or model input.
+\end{frame}
+
+\section{Python Implementation}
+% Slide: Python Code Example
+\begin{frame}[fragile]{PCA in Python}
+    \small
+\begin{lstlisting}[language=Python]
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_iris
+import matplotlib.pyplot as plt
+
+data = load_iris()
+X = StandardScaler().fit_transform(data.data)
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+plt.scatter(X_pca[:,0], X_pca[:,1], c=data.target)
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("PCA on Iris Dataset")
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+% Slide: Choosing Components
+\begin{frame}[fragile]{Choosing Number of Components}
+    \small
+\begin{lstlisting}[language=Python]
+pca = PCA().fit(X)
+plt.plot(np.cumsum(pca.explained_variance_ratio_))
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance')
+plt.grid(True)
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+
+% Slide: Pros and Cons
+\begin{frame}{ Pros and  Cons}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Pros:}
+\begin{itemize}
+    \item Reduces overfitting
+    \item Speeds up training
+    \item Useful for visualization
+    \item Removes multicollinearity
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Cons:}
+\begin{itemize}
+    \item Loss of interpretability
+    \item Assumes linearity
+    \item Sensitive to feature scaling
+    \item May discard useful info
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% Slide: Applications
+\begin{frame}{Applications of PCA}
+\begin{itemize}
+    \item Face recognition and image compression
+    \item Noise filtering and denoising
+    \item Gene expression analysis
+    \item Financial modeling and portfolio risk
+    \item Data visualization in 2D/3D
+\end{itemize}
+\end{frame}
+
+% Slide: Summary
+\begin{frame}{Summary}
+\begin{itemize}
+    \item PCA is a powerful tool for reducing dimensionality
+    \item It transforms data into uncorrelated, variance-maximizing components
+    \item Useful for improving model performance, visualizing data, and removing noise
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}

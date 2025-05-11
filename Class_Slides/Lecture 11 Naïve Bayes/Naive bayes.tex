@@ -1,0 +1,245 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Naive Bayes}
+\subtitle{}
+\date{}
+
+\begin{document}
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\section{Introduction to Naive Bayes}
+\begin{frame}{What is Naive Bayes?}
+  \begin{itemize}
+    \item A probabilistic classification algorithm based on Bayes’ Theorem.
+    \item Called "naive" due to the strong (naive) assumption of feature independence.
+    \item Performs well in many practical situations, especially text classification.
+  \end{itemize}
+\end{frame}
+
+% Slide 2 - Bayes' Theorem
+\begin{frame}{Bayes’ Theorem}
+  \[
+  P(C|X) = \frac{P(X|C) \cdot P(C)}{P(X)}
+  \]
+  \begin{itemize}
+    \item $P(C|X)$: Posterior probability of class $C$ given data $X$
+    \item $P(X|C)$: Likelihood of data $X$ given class $C$
+    \item $P(C)$: Prior probability of class $C$
+    \item $P(X)$: Evidence (normalizing constant)
+  \end{itemize}
+  In classification:
+  \[
+  P(C|X) \propto P(X|C) \cdot P(C)
+  \]
+\end{frame}
+
+% Slide 3 - Naive Assumption
+\begin{frame}{Naive Independence Assumption}
+  \[
+  P(X|C) = \prod_{i=1}^{n} P(x_i|C)
+  \]
+  \begin{itemize}
+    \item Assumes all features $x_i$ are conditionally independent given class $C$.
+    \item Simplifies computation dramatically.
+  \end{itemize}
+\end{frame}
+
+% Slide 4 - Types of Naive Bayes
+\begin{frame}{Types of Naive Bayes}
+  \begin{itemize}
+    \item \textbf{Gaussian NB:} Continuous data, assumes normal distribution.
+    \item \textbf{Multinomial NB:} Discrete counts, great for text data.
+    \item \textbf{Bernoulli NB:} Binary features (0/1), presence/absence.
+  \end{itemize}
+\end{frame}
+
+% Slide 5 - Gaussian Formula
+\begin{frame}{Gaussian Naive Bayes}
+  For continuous features:
+  \[
+  P(x_i | C) = \frac{1}{\sqrt{2\pi\sigma_C^2}} \exp\left(-\frac{(x_i - \mu_C)^2}{2\sigma_C^2}\right)
+  \]
+  \begin{itemize}
+    \item $\mu_C$: Mean of feature for class $C$
+    \item $\sigma_C^2$: Variance of feature for class $C$
+  \end{itemize}
+\end{frame}
+
+% Slide 6 - Example Use Case
+\begin{frame}{Example: Spam Detection}
+  \begin{itemize}
+    \item Features: Presence of words in email
+    \item Classes: Spam vs Not Spam
+    \item Learn:
+    \begin{itemize}
+      \item $P(\text{spam})$, $P(\text{not spam})$
+      \item $P(\text{word}|\text{spam})$, etc.
+    \end{itemize}
+    \item Predict using Bayes Rule
+  \end{itemize}
+\end{frame}
+
+% Slide 7 - Pros and Cons
+\begin{frame}{Pros and Cons}
+  \textbf{Pros:}
+  \begin{itemize}
+    \item Simple, fast, efficient with high-dimensional data
+    \item Requires small training data
+  \end{itemize}
+  \textbf{Cons:}
+  \begin{itemize}
+    \item Assumes feature independence (often unrealistic)
+    \item Sensitive to correlated features
+  \end{itemize}
+\end{frame}
+
+% Slide 8 - Python Example
+\begin{frame}[fragile]{Python Example}
+    \small
+\begin{verbatim}
+from sklearn.naive_bayes import GaussianNB
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+model = GaussianNB()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+\end{verbatim}
+\end{frame}
+
+% Slide 9 - Summary
+\begin{frame}{Summary}
+  \begin{itemize}
+    \item Naive Bayes is powerful despite its simplicity.
+    \item Useful in classification tasks, especially with text data.
+    \item Works best with large, clean, independent features.
+  \end{itemize}
+\end{frame}
+
+\section{Math Example}
+\begin{frame}{Dataset}
+\begin{table}[]
+\centering
+\begin{tabular}{cccc}
+\toprule
+\textbf{Day} & \textbf{Outlook} & \textbf{Windy} & \textbf{Rain?} \\
+\midrule
+1 & Sunny    & False & No  \\
+2 & Sunny    & True  & No  \\
+3 & Overcast & False & Yes \\
+4 & Rainy    & False & Yes \\
+5 & Rainy    & True  & No  \\
+6 & Overcast & True  & Yes \\
+7 & Sunny    & False & No  \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+% Task Slide
+\begin{frame}{Prediction Task}
+Given a new day with:
+\begin{itemize}
+  \item Outlook = Rainy
+  \item Windy = False
+\end{itemize}
+Predict whether it will \textbf{Rain} using Naive Bayes with Laplace Smoothing.
+\end{frame}
+
+% Priors
+\begin{frame}{Step 1: Compute Class Priors}
+Total samples: 7 \\
+Yes = 3, No = 4, Number of classes = 2
+
+\[
+P(\text{Yes}) = \frac{3 + 1}{7 + 2} = \frac{4}{9} \quad 
+P(\text{No}) = \frac{4 + 1}{7 + 2} = \frac{5}{9}
+\]
+\end{frame}
+
+% Likelihoods
+\begin{frame}{Step 2: Compute Likelihoods with Laplace Smoothing}
+\textbf{For Class = Yes}
+\[
+P(\text{Outlook=Rainy | Yes}) = \frac{1 + 1}{3 + 3} = \frac{2}{6}
+\]
+\[
+P(\text{Windy=False | Yes}) = \frac{2 + 1}{3 + 2} = \frac{3}{5}
+\]
+
+\textbf{For Class = No}
+\[
+P(\text{Outlook=Rainy | No}) = \frac{1 + 1}{4 + 3} = \frac{2}{7}
+\]
+\[
+P(\text{Windy=False | No}) = \frac{2 + 1}{4 + 2} = \frac{3}{6}
+\]
+\end{frame}
+
+% Laplace Formula Explanation
+\begin{frame}{Laplace Smoothing Formula}
+\[
+P(x_i | C) = \frac{\text{count}(x_i, C) + 1}{\text{count}(C) + V}
+\]
+
+\textbf{Where:}
+\begin{itemize}
+  \item $x_i$ = feature value (e.g., Rainy, False)
+  \item $C$ = class label (Yes or No)
+  \item $\text{count}(x_i, C)$ = number of times $x_i$ appears in class $C$
+  \item $\text{count}(C)$ = total samples in class $C$
+  \item $V$ = number of possible values the feature can take
+\end{itemize}
+\end{frame}
+
+% Log-likelihood calculation
+\begin{frame}{Step 3: Compute Log Probabilities}
+\textbf{Log Posterior (Yes):}
+\[
+\log\left(\frac{4}{9}\right) + \log\left(\frac{2}{6}\right) + \log\left(\frac{3}{5}\right) \approx -2.420
+\]
+
+\textbf{Log Posterior (No):}
+\[
+\log\left(\frac{5}{9}\right) + \log\left(\frac{2}{7}\right) + \log\left(\frac{3}{6}\right) \approx -2.534
+\]
+\end{frame}
+
+% Final Prediction
+\begin{frame}{Final Prediction}
+\[
+\log P(\text{Yes} | X) = -2.42 > \log P(\text{No} | X) = -2.53
+\]
+
+\begin{block}{Conclusion}
+\textbf{Prediction:} It Will Rain (Yes)
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}

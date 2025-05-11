@@ -1,0 +1,288 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Feature Selection and Engineering}
+\subtitle{}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% Section: Introduction
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \bigskip
+  \textbf{What is Feature Engineering?}\\ 
+  Feature Engineering is the process of using domain knowledge to extract features from raw data that make machine learning algorithms work better.
+  \bigskip
+
+  \textbf{What is Feature Selection?}\\  
+  Feature Selection is the process of selecting a subset of relevant features for use in model construction. It helps reduce overfitting, improves accuracy, and decreases training time.
+\end{frame}
+
+% Section: Feature Engineering Techniques
+\section{Feature Engineering Techniques}
+
+% Handling Missing Values
+\begin{frame}{Handling Missing Values}
+  \textit{Replacing or flagging missing data to ensure model integrity.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item \textbf{Imputation}: Fill missing values using Mean/Median/Mode.
+    \item \textbf{Interpolation}: Estimate missing values based on nearby data points.
+    \item \textbf{Model-based}: Use KNN or MICE to predict missing values.
+    \item \textbf{Flag Missingness}: Create a binary indicator variable for missing data.
+  \end{itemize}
+\end{frame}
+
+% Encoding Categorical Variables
+\begin{frame}{Encoding Categorical Variables}
+  \textit{Convert categorical data into numerical format for ML models.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item Label Encoding (Ordinal data)
+    \item One-Hot Encoding (Nominal data)
+    \item Target Encoding (Category replaced with target mean)
+    \item Frequency Encoding (Category replaced with frequency count)
+  \end{itemize}
+\end{frame}
+
+% Scaling and Normalization
+\begin{frame}{Scaling and Normalization}
+  \textit{Adjust feature values to improve model efficiency and stability.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item Min-Max Scaling (Rescale values between 0 and 1)
+    \item Standardization (Z-score normalization)
+    \item Robust Scaling (Handles outliers effectively)
+  \end{itemize}
+\end{frame}
+
+% Date and Time Features
+\begin{frame}{Date and Time Features}
+  \textit{Extract meaningful information from timestamps.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item Extract year, month, weekday, hour
+    \item Compute duration (e.g., time since last purchase)
+  \end{itemize}
+\end{frame}
+
+% Text Feature Engineering
+\begin{frame}{Text Feature Engineering}
+  \textit{Convert text into numerical representations for ML models.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item TF-IDF, Bag of Words
+    \item N-grams for sequence analysis
+    \item Word Embeddings (Word2Vec, GloVe, BERT)
+  \end{itemize}
+\end{frame}
+
+% Polynomial and Interaction Features
+\begin{frame}{Polynomial and Interaction Features}
+  \textit{Enhance feature complexity for non-linear relationships.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item Use PolynomialFeatures from scikit-learn
+    \item Multiply or add features for richer relationships
+  \end{itemize}
+\end{frame}
+
+% Aggregation and GroupBy Features
+\begin{frame}{Aggregation and GroupBy Features}
+  \textit{Summarize data points based on logical groups.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item Compute average purchase per user
+    \item Count-based features (e.g., number of transactions)
+  \end{itemize}
+\end{frame}
+
+% Domain-Specific Features
+\begin{frame}{Domain-Specific Features}
+  \textit{Custom features designed from industry knowledge.}  
+
+  \textbf{Examples:}  
+  \begin{itemize}
+    \item BMI calculated from weight and height
+    \item Risk scores in fraud detection
+  \end{itemize}
+\end{frame}
+
+
+\section{Feature Selection Techniques}
+
+% 1. Filter Methods
+\begin{frame}{Filter Methods}
+    \textit{Feature selection based on statistical measures independent of the model.}
+
+    \textbf{Examples:}  
+    \begin{itemize}
+        \item \textbf{Correlation Thresholding}: Remove highly correlated features (e.g., remove one of "height" and "weight" if correlation > 0.9).
+        \item \textbf{Chi-Square Test}: Assess categorical features (e.g., selecting significant features for predicting customer churn).
+        \item \textbf{ANOVA F-test}: Evaluate numerical features against categorical targets (e.g., testing if different income levels affect purchase decisions).
+        \item \textbf{Mutual Information}: Measure dependence between feature and target (e.g., selecting words that strongly predict spam emails).
+    \end{itemize}
+\end{frame}
+
+% 2. Wrapper Methods
+\begin{frame}{Wrapper Methods}
+    \textit{Feature selection performed by iteratively testing subsets using a model.}
+
+    \textbf{Examples:}  
+    \begin{itemize}
+        \item \textbf{Recursive Feature Elimination (RFE)}: Remove least important features step-by-step (e.g., selecting the top 10 features for predicting house prices).
+        \item \textbf{Sequential Feature Selection (SFS)}: Add/remove features based on model accuracy (e.g., improving a fraud detection model by iteratively selecting important transaction features).
+        \item \textbf{Forward Selection}: Start with no features and add one at a time (e.g., selecting the best combination of factors affecting customer retention).
+        % \item \textbf{Backward Elimination}: Start with all features and remove the least useful ones (e.g., pruning irrelevant financial indicators for credit risk prediction).
+    \end{itemize}
+\end{frame}
+
+% 3. Embedded Methods
+\begin{frame}{Embedded Methods}
+    \textit{Feature selection performed automatically during model training.}
+
+    \textbf{Examples:}  
+    \begin{itemize}
+        \item \textbf{Lasso Regression (L1 Regularization)}: Shrinks less important feature weights to zero (e.g., selecting the most relevant features for predicting house prices).
+        \item \textbf{Ridge Regression (L2 Regularization)}: Reduces magnitude but does not eliminate features (e.g., ensuring smooth feature importance ranking in medical diagnoses).
+        \item \textbf{Tree-based Feature Importance}: Rank features using models like Random Forest or XGBoost (e.g., identifying the top predictors for customer churn).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Curse of Dimensionality}
+  \textbf{Curse of Dimensionality}: As the number of features increases, the volume of the feature space increases exponentially, making it harder to find patterns.\\
+\end{frame}
+
+% 4. Dimensionality Reduction
+\begin{frame}{Dimensionality Reduction}
+  
+    \textit{\textbf{Dimensionality Reduction Techniques} Reduce feature space while preserving the most relevant information.}\\
+    \textbf{Examples:}  
+    \begin{itemize}
+        \item \textbf{Principal Component Analysis (PCA)}: Transform correlated features into independent components (e.g., reducing hundreds of financial metrics into principal components for stock price forecasting).
+        \item \textbf{Linear Discriminant Analysis (LDA)}: Maximizes class separability while reducing dimensions (e.g., distinguishing between cancer vs. non-cancer patients based on genetic markers).
+        \item \textbf{t-SNE / UMAP}: Useful for data visualization (e.g., clustering customers based on behavioral similarities).
+    \end{itemize}
+\end{frame}
+
+\section{Looks Good on Paper: Why Your Model Fails in the Real World }
+
+
+\begin{frame}{Data Leakage}
+
+\textbf{Definition:} When information from outside the training dataset leaks into the model training process.
+\textit{\textbf{"The Devil in Disguise"}}
+\begin{itemize}
+    \item \textbf{Target Leakage:} Using labels or future data in training
+    \item \textbf{Train-Test Contamination:} Preprocessing before data split
+    \item \textbf{Temporal Leakage:} Using future time data to predict the present
+\end{itemize}
+
+\textbf{Prevention:}
+\begin{itemize}
+    \item Split data before any preprocessing
+    \item Avoid features unavailable at inference
+    \item Use time-aware splitting for time series
+\end{itemize}
+\end{frame}
+
+% Data Augmentation
+\begin{frame}{Data Augmentation}
+\textbf{Purpose:} Increase dataset size/diversity to improve generalization.
+
+\begin{block}{Common Techniques}
+\begin{itemize}
+    \item \textbf{Images:} Flip, rotate, crop, noise
+    \item \textbf{Text:} Synonym replacement, back-translation
+    \item \textbf{Time Series:} Jittering, slicing
+\end{itemize}
+\end{block}
+
+\textbf{Cautions:}
+\begin{itemize}
+    \item Don’t change labels via augmentation
+    \item Apply only to training data
+\end{itemize}
+\end{frame}
+
+% Pitfalls
+\begin{frame}{Common Pitfalls in ML}
+\begin{tabular}{ll}
+\toprule
+\textbf{Pitfall} & \textbf{Solution} \\
+\midrule
+Overfitting & Regularization, cross-validation \\
+Underfitting & More features or complex model \\
+Imbalanced data & SMOTE, class weights \\
+Data leakage & Proper split before processing \\
+Incorrect preprocessing & Standardize after splitting \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+% Cross Validation
+\begin{frame}{Cross-Validation}
+\textbf{Goal:} Evaluate model stability using resampling.\textit{\textbf{"On Training set only"}}
+
+\begin{block}{Types of Cross-Validation}
+\begin{itemize}
+    \item \textbf{K-Fold}: Generic, good default
+    \item \textbf{Stratified K-Fold}: Maintains class balance
+    \item \textbf{TimeSeriesSplit}: For time-dependent data
+    \item \textbf{Group K-Fold}: Prevents group overlap
+\end{itemize}
+\end{block}
+
+\textbf{Tips:}
+\begin{itemize}
+    \item Use nested CV for model + hyperparameter selection
+    \item Always validate on \textbf{unseen data}
+\end{itemize}
+\end{frame}
+
+% Summary
+\begin{frame}{Summary}
+\begin{itemize}
+    \item Data leakage can ruin model performance — always split first!
+    \item Use augmentation wisely — only on training data
+    \item Avoid common ML mistakes: overfitting, imbalance, poor validation
+    \item Cross-validation is key for robust evaluation
+\end{itemize}
+
+\centering
+\textbf{Practice carefully, validate robustly, deploy confidently!}
+\end{frame}
+
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}

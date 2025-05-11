@@ -1,0 +1,2 @@
+\beamer@sectionintoc {1}{Introduction to Naive Bayes}{3}{0}{1}
+\beamer@sectionintoc {2}{Math Example}{13}{0}{2}

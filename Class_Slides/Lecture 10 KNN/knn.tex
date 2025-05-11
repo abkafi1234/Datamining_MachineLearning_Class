@@ -1,0 +1,176 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{KNN}
+\subtitle{}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\section{K-Nearest Neighbors (KNN)}
+\begin{frame}{What is KNN?}
+  \begin{itemize}
+    \item Non-parametric, instance-based (lazy) learning algorithm
+    \item Used for both classification and regression
+    \item No training phase — stores all training data
+    \item Prediction based on the majority vote (classification) or average (regression) of the $k$ nearest neighbors
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm Steps}
+  \begin{enumerate}
+    \item Choose value of $k$
+    \item Compute distance between test point and all training points
+    \item Select $k$ closest neighbors
+    \item \textbf{Classification}: majority vote \\
+          \textbf{Regression}: average of neighbor values
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Distance Metrics}
+  \begin{itemize}
+    \item \textbf{Euclidean Distance:} $\sqrt{\sum_{i=1}^n (x_i - y_i)^2}$
+    \item Manhattan Distance: $\sum_{i=1}^n |x_i - y_i|$
+    \item Minkowski Distance (generalized): $\left( \sum_{i=1}^n |x_i - y_i|^p \right)^{1/p}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Choosing $k$ and Considerations}
+  \begin{itemize}
+    \item Small $k$: sensitive to noise (overfitting)
+    \item Large $k$: more robust but may underfit
+    \item Use cross-validation to choose optimal $k$
+    \item Normalize features (scaling is critical!)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Pros and Cons}
+  \textbf{Pros:}
+  \begin{itemize}
+    \item Simple and intuitive
+    \item No training time
+    \item Adapts well to changing data
+  \end{itemize}
+  \vspace{0.3cm}
+  \textbf{Cons:}
+  \begin{itemize}
+    \item Slow at prediction time
+    \item Sensitive to irrelevant or correlated features
+    \item Suffers from the curse of dimensionality
+  \end{itemize}
+\end{frame}
+
+\section{Python Implementation}
+\begin{frame}[fragile]{Python Code Example}
+\begin{tiny}
+\begin{verbatim}
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+X, y = load_iris(return_X_y=True)
+X = StandardScaler().fit_transform(X)
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+model = KNeighborsClassifier(n_neighbors=5)
+model.fit(X_train, y_train)
+print("Accuracy:", model.score(X_test, y_test))
+\end{verbatim}
+\end{tiny}
+\end{frame}
+
+\begin{frame}{Summary}
+  \begin{itemize}
+    \item KNN is powerful for low-dimensional, small datasets
+    \item Performance highly dependent on distance metric and feature scaling
+    \item Use cross-validation to tune $k$
+    \item Consider dimensionality reduction techniques for high-dimensional data
+  \end{itemize}
+\end{frame}
+
+\section{Math Example}
+\begin{frame}{KNN Classification: Math Example}
+
+\textbf{Dataset:}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Point & $x$ & $y$ & Label \\
+\hline
+A & 1 & 2 & Red \\
+B & 2 & 3 & Red \\
+C & 3 & 3 & Blue \\
+D & 6 & 5 & Blue \\
+\hline
+\end{tabular}
+
+\vspace{0.3cm}
+\textbf{Query Point: } $Q = (3, 4)$ \hfill Choose $k = 3$
+
+\end{frame}
+
+\begin{frame}{Step 1: Compute Euclidean Distances}
+\small
+\[
+\text{Euclidean distance: } d(p, q) = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}
+\]
+
+\begin{itemize}
+  \item $d(Q, A) = \sqrt{(3-1)^2 + (4-2)^2} = \sqrt{4 + 4} = \sqrt{8} \approx 2.83$
+  \item $d(Q, B) = \sqrt{(3-2)^2 + (4-3)^2} = \sqrt{1 + 1} = \sqrt{2} \approx 1.41$
+  \item $d(Q, C) = \sqrt{(3-3)^2 + (4-3)^2} = \sqrt{1} = 1.0$
+  \item $d(Q, D) = \sqrt{(3-6)^2 + (4-5)^2} = \sqrt{9 + 1} = \sqrt{10} \approx 3.16$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Step 2: Nearest Neighbors and Voting}
+\small
+\textbf{3 Nearest Neighbors (Sorted):}
+
+\begin{tabular}{|c|c|c|}
+\hline
+Point & Distance & Label \\
+\hline
+C & 1.0 & Blue \\
+B & 1.41 & Red \\
+A & 2.83 & Red \\
+\hline
+\end{tabular}
+
+\vspace{0.4cm}
+\textbf{Majority Vote:}
+\begin{itemize}
+  \item Red: 2 votes (B, A)
+  \item Blue: 1 vote (C)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Predicted Class: \textcolor{red}{Red}}
+\end{frame}
+
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}
