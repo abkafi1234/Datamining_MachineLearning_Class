@@ -1,0 +1,165 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Random Forest}
+\subtitle{A Gentle Introduction}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny}
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% Section 1
+\section{Introduction}
+
+\begin{frame}{What is a Random Forest?}
+\begin{itemize}
+    \item An ensemble of decision trees
+    \item Combines predictions from multiple trees
+    \item Trained on different subsets of data and features
+    \item Used for classification and regression
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Use Random Forests?}
+\begin{itemize}
+    \item Reduces overfitting of individual decision trees
+    \item Increases predictive accuracy
+    \item Handles high-dimensional and missing data well
+    \item Requires minimal parameter tuning
+\end{itemize}
+\end{frame}
+
+% Section 2
+\section{How It Works}
+
+\begin{frame}{Algorithm Overview}
+\begin{enumerate}
+    \item Draw $N$ bootstrap samples from training data
+    \item Train a decision tree on each sample:
+    \begin{itemize}
+        \item At each split, consider only a random subset of features
+    \end{itemize}
+    \item Aggregate predictions:
+    \begin{itemize}
+        \item Majority vote (classification)
+        \item Average (regression)
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Voting and Averaging}
+\begin{itemize}
+    \item \textbf{Classification}:
+    \[
+    \hat{y} = \text{majority vote of all trees}
+    \]
+    \item \textbf{Regression}:
+    \[
+    \hat{y} = \frac{1}{T} \sum_{t=1}^{T} f_t(x)
+    \]
+    \item Intuition: reduces variance, like averaging noisy opinions
+\end{itemize}
+\end{frame}
+
+% Section 3
+\section{Features and Parameters}
+
+\begin{frame}{Key Hyperparameters}
+\begin{itemize}
+    \item \texttt{n\_estimators}: Number of trees
+    \item \texttt{max\_depth}: Max depth of each tree
+    \item \texttt{max\_features}: Number of features considered at each split
+    \item \texttt{min\_samples\_split}: Minimum samples required to split a node
+    \item \texttt{bootstrap}: Whether to use bootstrap samples
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Out-of-Bag (OOB) Error Estimate}
+\begin{itemize}
+    \item Each tree is trained on a bootstrap sample
+    \item About 1/3 of data is left out ("out-of-bag")
+    \item These OOB samples are used to:
+    \begin{itemize}
+        \item Estimate generalization error
+        \item Avoid cross-validation
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Section 4
+\section{Pros and Cons}
+
+\begin{frame}{Advantages of Random Forest}
+\begin{itemize}
+    \item High accuracy with minimal tuning
+    \item Works well on many data types and tasks
+    \item Robust to outliers and noise
+    \item Handles large datasets and features efficiently
+    \item Feature importance analysis available
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Limitations}
+\begin{itemize}
+    \item Slower for large number of trees or very deep trees
+    \item Less interpretable than a single decision tree
+    \item May overfit if trees are too deep and data is noisy
+    \item Not ideal for extrapolation tasks (in regression)
+\end{itemize}
+\end{frame}
+
+% Section 5
+\section{Applications \& Tools}
+
+\begin{frame}{Common Applications}
+\begin{itemize}
+    \item Medical diagnosis
+    \item Credit scoring and fraud detection
+    \item Recommendation systems
+    \item Image and text classification
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tools and Libraries}
+\begin{itemize}
+    \item \textbf{Scikit-learn}: \texttt{RandomForestClassifier}, \texttt{RandomForestRegressor}
+    \item \textbf{Spark MLlib}, \textbf{H2O.ai}, \textbf{Weka}
+    \item Deep integration in data science workflows
+\end{itemize}
+\end{frame}
+
+% Summary
+\section{Summary}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Random Forests = Ensemble of Decision Trees
+    \item Based on bagging + random feature selection
+    \item Reduces overfitting, improves accuracy
+    \item Useful, robust, and easy to use
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+
+\end{document}

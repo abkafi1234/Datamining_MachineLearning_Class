@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Main Tasks}{6}{0}{2}
+\beamer@sectionintoc {3}{Popular Algorithms}{10}{0}{3}
+\beamer@sectionintoc {4}{Challenges and Considerations}{13}{0}{4}
+\beamer@sectionintoc {5}{Applications and Tools}{15}{0}{5}
+\beamer@sectionintoc {6}{Summary}{18}{0}{6}

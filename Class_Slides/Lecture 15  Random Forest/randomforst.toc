@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{How It Works}{6}{0}{2}
+\beamer@sectionintoc {3}{Features and Parameters}{9}{0}{3}
+\beamer@sectionintoc {4}{Pros and Cons}{12}{0}{4}
+\beamer@sectionintoc {5}{Applications \& Tools}{15}{0}{5}
+\beamer@sectionintoc {6}{Summary}{18}{0}{6}

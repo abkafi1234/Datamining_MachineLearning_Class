@@ -1,0 +1,168 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Unsupervised Learning}
+\subtitle{A Beginner's Introduction}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny}
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% Section 1
+\section{Introduction}
+
+\begin{frame}{What is Unsupervised Learning?}
+\begin{itemize}
+    \item Learning patterns from \textbf{unlabeled} data
+    \item No predefined output or target variable
+    \item Goal: discover hidden structures, groupings, or representations
+    \item Common in exploratory data analysis
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Unsupervised Learning?}
+\begin{itemize}
+    \item Labeling data is expensive or impossible
+    \item Understand data distribution and relationships
+    \item Useful for:
+    \begin{itemize}
+        \item Clustering customers, documents, images
+        \item Reducing dimensionality for visualization or speed
+        \item Detecting anomalies or outliers
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Section 2
+\section{Main Tasks}
+
+\begin{frame}{Clustering}
+\begin{itemize}
+    \item Group similar data points into clusters
+    \item Examples:
+    \begin{itemize}
+        \item \textbf{k-Means}: partition data into k groups by minimizing within-cluster variance
+        \item \textbf{Hierarchical Clustering}: build a tree of clusters
+        \item \textbf{DBSCAN}: density-based clustering, detects noise
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Dimensionality Reduction}
+\begin{itemize}
+    \item Reduce number of features while preserving structure
+    \item Common methods:
+    \begin{itemize}
+        \item \textbf{PCA} (Principal Component Analysis): finds directions of maximum variance
+        \item \textbf{t-SNE}, \textbf{UMAP}: nonlinear embeddings for visualization
+        \item \textbf{Autoencoders}: neural networks that learn compressed representations
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Density Estimation and Anomaly Detection}
+\begin{itemize}
+    \item Estimate probability distribution of data
+    \item Detect outliers as points in low-density regions
+    \item Examples:
+    \begin{itemize}
+        \item Gaussian Mixture Models (GMM)
+        \item Kernel Density Estimation (KDE)
+        \item One-class SVM
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Section 3
+\section{Popular Algorithms}
+
+\begin{frame}{k-Means Clustering}
+\begin{itemize}
+    \item Initialize k centroids randomly
+    \item Assign points to nearest centroid
+    \item Update centroids as mean of assigned points
+    \item Repeat until convergence
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Principal Component Analysis (PCA)}
+\begin{itemize}
+    \item Linear projection to lower dimension
+    \item Finds orthogonal directions maximizing variance
+    \item Useful for:
+    \begin{itemize}
+        \item Noise reduction
+        \item Visualization
+        \item Feature extraction
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Section 4
+\section{Challenges and Considerations}
+
+\begin{frame}{Challenges in Unsupervised Learning}
+\begin{itemize}
+    \item No ground truth for evaluation
+    \item Choosing number of clusters or components
+    \item Sensitivity to initialization and parameters
+    \item Scalability to large datasets
+    \item Interpretability of results
+\end{itemize}
+\end{frame}
+
+% Section 5
+\section{Applications and Tools}
+
+\begin{frame}{Applications}
+\begin{itemize}
+    \item Customer segmentation
+    \item Document and image organization
+    \item Anomaly detection in fraud, network security
+    \item Data compression and visualization
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Popular Libraries}
+\begin{itemize}
+    \item \textbf{Scikit-learn}: clustering, PCA, GMM, DBSCAN
+    \item \textbf{TensorFlow/PyTorch}: autoencoders and deep clustering
+    \item \textbf{HDBSCAN}, \textbf{UMAP} packages for advanced clustering and visualization
+\end{itemize}
+\end{frame}
+
+% Summary
+\section{Summary}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Unsupervised learning finds patterns without labels
+    \item Key tasks: clustering, dimensionality reduction, density estimation
+    \item Many algorithms exist; choice depends on data and goal
+    \item Evaluation is often subjective or uses proxy metrics
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+
+\end{document}

@@ -1,0 +1,431 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Ensemble Learning Theory}
+\subtitle{}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\begin{frame}{Introduction to Ensemble Learning}
+\begin{itemize}
+    \item \textbf{Ensemble Learning} combines multiple models to improve performance.
+    \item Motivation:
+    \begin{itemize}
+        \item Reduce overfitting
+        \item Improve generalization
+        \item Handle complex tasks
+    \end{itemize}
+    \item Widely used in practice (e.g., Random Forest, XGBoost, Kaggle solutions)
+\end{itemize}
+\end{frame}
+% -- Explain real-world motivation and the general idea.
+
+% Slide 2
+\begin{frame}{Bias-Variance Decomposition}
+\begin{itemize}
+    \item Error = Bias$^2$ + Variance + Irreducible Error
+    \item Ensembles reduce variance (Bagging), sometimes bias (Boosting)
+    \item Averages out noise and instability
+\end{itemize}
+\[
+\text{Error} = \underbrace{\text{Bias}^2}_{\text{underfitting}} + \underbrace{\text{Variance}}_{\text{overfitting}} + \text{Noise}
+\]
+\end{frame}
+% -- Describe bias vs variance, and how ensembles help balance them.
+
+% Slide 3
+\begin{frame}{Theoretical Justification}
+\begin{itemize}
+    \item Ensemble Error: depends on base learners' error and their correlation
+    \item Key idea: uncorrelated models with decent accuracy help each other
+\end{itemize}
+\[
+E = \rho \cdot \bar{e} + (1 - \rho) \cdot \bar{e}^2
+\]
+\begin{itemize}
+    \item $\bar{e}$: average individual error
+    \item $\rho$: average correlation between classifiers
+\end{itemize}
+\end{frame}
+% -- Explain how diversity and average error together influence ensemble performance.
+
+% Slide 4
+\begin{frame}{Diversity in Ensembles}
+\begin{itemize}
+    \item Diversity is critical for ensemble success
+    \item Common diversity measures:
+    \begin{itemize}
+        \item Q-statistic
+        \item Correlation coefficient
+        \item Disagreement measure
+    \end{itemize}
+    \item Trade-off: Accuracy vs. Diversity
+\end{itemize}
+\end{frame}
+% -- Provide examples and visuals if needed. Diversity isn’t always easy to measure.
+
+% Slide 5
+\begin{frame}{Bagging (Bootstrap Aggregating)}
+\begin{itemize}
+    \item Train each model on a bootstrap sample
+    \item Combine predictions (voting/averaging)
+    \item Reduces variance
+\end{itemize}
+\[
+\hat{f}_{bag}(x) = \frac{1}{T} \sum_{t=1}^{T} f_t(x)
+\]
+\begin{itemize}
+    \item Example: Random Forests
+\end{itemize}
+\end{frame}
+% -- Explain bootstrapping and its statistical effect.
+
+% Slide 6
+\begin{frame}{Boosting}
+\begin{itemize}
+    \item Models are trained sequentially
+    \item Each model focuses on errors of previous ones
+    \item Reduces bias
+\end{itemize}
+\[
+F_m(x) = F_{m-1}(x) + \alpha_m h_m(x)
+\]
+\begin{itemize}
+    \item AdaBoost: Changes sample weights
+    \item Gradient Boosting: Fits gradient of loss function
+\end{itemize}
+\end{frame}
+% -- Highlight margin theory and intuitive working of AdaBoost/GBM.
+
+% Slide 7
+\begin{frame}{Stacking}
+\begin{itemize}
+    \item Combine predictions using a meta-learner
+    \item Level-0: Base learners
+    \item Level-1: Meta model
+    \item Trained on out-of-fold predictions
+\end{itemize}
+\end{frame}
+% -- Stress the importance of using validation data to train meta-learner.
+
+% Slide 8
+\begin{frame}{Conditions for Effective Ensembles}
+\begin{itemize}
+    \item Base learners should:
+    \begin{itemize}
+        \item Be accurate (better than random)
+        \item Be diverse (make different errors)
+    \end{itemize}
+    \item Independence isn't required — complementarity is enough
+\end{itemize}
+\end{frame}
+% -- Use diagrams or examples if you present this live.
+
+% Slide 9
+\begin{frame}{Advanced: PAC Learning & Bounds}
+\begin{itemize}
+    \item PAC theory gives error bounds on learning
+    \item Ensemble generalization error can be bounded:
+    \[
+    R(H) \leq \hat{R}(H) + \sqrt{\frac{VC(H) \log(n)}{n}}
+    \]
+    \item Boosting improves margins → better generalization
+\end{itemize}
+\end{frame}
+% -- Introduce margin theory and generalization capacity.
+
+% Slide 10
+\begin{frame}{Pruning and Bayesian View}
+\begin{itemize}
+    \item Ensemble pruning removes weak or redundant learners
+    \item Bayesian model averaging:
+    \[
+    p(y|x) = \sum_{i} p(y|x, h_i) p(h_i)
+    \]
+    \item Gives a probabilistic view of ensemble prediction
+\end{itemize}
+\end{frame}
+% -- This can segue into ensemble optimization strategies.
+
+% Slide 11
+\begin{frame}{Practical Considerations}
+\begin{itemize}
+    \item Pros:
+    \begin{itemize}
+        \item Higher accuracy
+        \item Robust to noise
+    \end{itemize}
+    \item Cons:
+    \begin{itemize}
+        \item Slower training/inference
+        \item Reduced interpretability
+    \end{itemize}
+    \item Don’t ensemble identical models!
+\end{itemize}
+\end{frame}
+% -- Discuss when ensembles might not be worth the trade-off.
+
+% Slide 12
+\begin{frame}{Case Studies & Tools}
+\begin{itemize}
+    \item Random Forest: Scikit-learn
+    \item XGBoost, LightGBM: Efficient boosting libraries
+    \item Deep Ensembles: Snapshot ensembles, SWA, MC Dropout
+    \item Kaggle usage and industry adoption
+\end{itemize}
+\end{frame}
+% -- Show real results or demo tools if possible.
+
+% Slide 13
+\begin{frame}{Summary and Key Takeaways}
+\begin{itemize}
+    \item Ensembles improve performance by combining weak learners
+    \item Success depends on diversity and accuracy
+    \item Bagging, Boosting, and Stacking are key methods
+    \item Balance performance and complexity
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+\end{document}\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Ensemble Learning Theory}
+\subtitle{}
+\date{}
+
+\begin{document}
+
+% Title Slide
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+% Outline Slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% Section Slide: Introduction
+\section{Introduction}
+
+\begin{frame}{Introduction to Ensemble Learning}
+\begin{itemize}
+    \item \textbf{Ensemble Learning} combines multiple models to improve performance.
+    \item Motivation:
+    \begin{itemize}
+        \item Reduce overfitting
+        \item Improve generalization
+        \item Handle complex tasks
+    \end{itemize}
+    \item Widely used in practice: \textit{Random Forest}, \textit{XGBoost}, \textit{Stacking models}
+\end{itemize}
+\end{frame}
+
+% Section Slide: Theory
+\section{Theoretical Foundations}
+
+\begin{frame}{Bias-Variance Decomposition}
+\begin{itemize}
+    \item Prediction Error = Bias$^2$ + Variance + Noise
+    \item \textbf{Bagging}: reduces variance
+    \item \textbf{Boosting}: reduces bias
+\end{itemize}
+\[
+\text{Error} = \underbrace{\text{Bias}^2}_{\text{underfitting}} + \underbrace{\text{Variance}}_{\text{overfitting}} + \text{Noise}
+\]
+\end{frame}
+
+\begin{frame}{Theoretical Justification}
+\begin{itemize}
+    \item Ensemble error depends on:
+    \begin{itemize}
+        \item Average error of base learners
+        \item Correlation between them
+    \end{itemize}
+\end{itemize}
+\[
+E = \rho \cdot \bar{e} + (1 - \rho) \cdot \bar{e}^2
+\]
+\begin{itemize}
+    \item $\bar{e}$: average individual error
+    \item $\rho$: average pairwise correlation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Diversity in Ensembles}
+\begin{itemize}
+    \item Key for success: learners should make different errors
+    \item Measures:
+    \begin{itemize}
+        \item Q-statistic
+        \item Correlation coefficient
+        \item Disagreement measure
+    \end{itemize}
+    \item Too much similarity $\Rightarrow$ reduced ensemble benefit
+\end{itemize}
+\end{frame}
+
+% Section Slide: Methods
+\section{Major Ensemble Methods}
+
+\begin{frame}{Overview of Ensemble Methods}
+\begin{itemize}
+    \item \textbf{Bagging}: Train in parallel on bootstrapped data
+    \item \textbf{Boosting}: Train sequentially to fix errors
+    \item \textbf{Stacking}: Combine diverse learners using a meta-learner
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bagging (Bootstrap Aggregating)}
+\begin{itemize}
+    \item Learn $f_t(x)$ from bootstrapped sample of dataset
+    \item Final prediction:
+\[
+\hat{f}_{bag}(x) = \frac{1}{T} \sum_{t=1}^{T} f_t(x)
+\]
+    \item Reduces variance without increasing bias
+    \item Example: \textbf{Random Forest}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Boosting}
+\begin{itemize}
+    \item Models trained sequentially
+    \item Each new model focuses on previous errors
+    \item Final prediction:
+\[
+F_m(x) = F_{m-1}(x) + \alpha_m h_m(x)
+\]
+    \item Types:
+    \begin{itemize}
+        \item \textbf{AdaBoost}: weighted majority voting
+        \item \textbf{Gradient Boosting}: uses gradient of loss
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Stacking (Stacked Generalization)}
+\begin{itemize}
+    \item Trains multiple diverse models (Level-0)
+    \item Combine outputs via meta-learner (Level-1)
+    \item Level-1 trained on out-of-fold predictions to avoid overfitting
+    \item Improves robustness across tasks
+\end{itemize}
+\end{frame}
+
+% Section Slide: Requirements & Analysis
+\section{Conditions \& Theory}
+
+\begin{frame}{Conditions for Effective Ensembles}
+\begin{itemize}
+    \item Base learners should:
+    \begin{itemize}
+        \item Be more accurate than random
+        \item Make uncorrelated errors
+    \end{itemize}
+    \item Complementarity > independence
+    \item Trade-off: more models vs better models
+\end{itemize}
+\end{frame}
+
+\begin{frame}{PAC Learning and Generalization Bounds}
+\begin{itemize}
+    \item PAC theory gives sample complexity bounds
+    \item Ensemble generalization error:
+\[
+R(H) \leq \hat{R}(H) + \sqrt{\frac{VC(H) \log(n)}{n}}
+\]
+    \item Boosting increases margin → better generalization
+\end{itemize}
+\end{frame}
+
+% Section Slide: Practical Considerations
+\section{Advanced Topics \& Practice}
+
+\begin{frame}{Pruning and Bayesian View}
+\begin{itemize}
+    \item \textbf{Pruning}: Remove weak learners to reduce complexity
+    \item \textbf{Bayesian Model Averaging (BMA)}:
+\[
+p(y|x) = \sum_i p(y|x, h_i) p(h_i)
+\]
+    \item Helps quantify uncertainty in ensemble predictions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Practical Considerations}
+\begin{itemize}
+    \item \textbf{Pros}:
+    \begin{itemize}
+        \item Higher accuracy
+        \item More robust predictions
+    \end{itemize}
+    \item \textbf{Cons}:
+    \begin{itemize}
+        \item Higher computation cost
+        \item Less interpretability
+    \end{itemize}
+    \item Tip: Avoid using identical models
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Case Studies and Tools}
+\begin{itemize}
+    \item \textbf{Scikit-learn} (Random Forest, BaggingClassifier)
+    \item \textbf{XGBoost}, \textbf{LightGBM} for boosting
+    \item \textbf{Snapshot Ensembles}, \textbf{MC Dropout} in deep learning
+    \item Widely used in Kaggle competitions and industry
+\end{itemize}
+\end{frame}
+
+% Section Slide: Summary
+\section{Summary}
+
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Ensemble methods improve performance by combining models
+    \item Bagging reduces variance, Boosting reduces bias
+    \item Diversity among models is crucial
+    \item Be mindful of trade-offs: accuracy vs. complexity
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you!
+\end{frame}
+
+\end{document}
