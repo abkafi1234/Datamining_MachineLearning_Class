@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{What is a CNN?}{3}{0}{1}
+\beamer@sectionintoc {2}{Convolution Layer}{6}{0}{2}
+\beamer@sectionintoc {3}{Padding and Stride}{11}{0}{3}
+\beamer@sectionintoc {4}{Activation and Pooling}{14}{0}{4}
+\beamer@sectionintoc {5}{CNN Architecture}{17}{0}{5}
+\beamer@sectionintoc {6}{Use Cases}{20}{0}{6}

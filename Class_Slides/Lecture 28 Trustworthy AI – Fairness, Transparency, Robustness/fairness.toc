@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Fairness}{6}{0}{2}
+\beamer@sectionintoc {3}{Transparency}{10}{0}{3}
+\beamer@sectionintoc {4}{Robustness}{14}{0}{4}
+\beamer@sectionintoc {5}{Best Practices}{18}{0}{5}

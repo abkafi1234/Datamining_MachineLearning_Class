@@ -1,0 +1,154 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+
+\usepackage{amsmath, amsfonts}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Recurrent Neural Networks}
+\subtitle{Understanding Sequential Models}
+\date{July 19, 2025}
+
+\begin{document}
+
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny}
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% --- Introduction ---
+\section{What are RNNs?}
+\begin{frame}{Why Recurrent Neural Networks?}
+RNNs are designed to handle sequential data.
+\begin{itemize}
+    \item Traditional neural networks assume independent inputs
+    \item RNNs capture dependencies across time steps
+    \item Suitable for time series, language, speech, etc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sequence Modeling}
+Given a sequence \( x = [x_1, x_2, \dots, x_T] \), RNN learns a function:
+\[
+h_t = f(h_{t-1}, x_t)
+\]
+\begin{itemize}
+    \item \( h_t \): hidden state at time \( t \)
+    \item Encodes past information from sequence
+\end{itemize}
+\end{frame}
+
+% --- RNN Mechanics ---
+\section{RNN Mechanics}
+\begin{frame}{Basic RNN Cell}
+At each time step:
+\[
+h_t = \tanh(W_h h_{t-1} + W_x x_t + b)
+\]
+\[
+y_t = W_y h_t + b_y
+\]
+\begin{itemize}
+    \item \( x_t \in \mathbb{R}^{n_x} \): input vector
+    \item \( h_t \in \mathbb{R}^{n_h} \): hidden state
+    \item \( y_t \in \mathbb{R}^{n_y} \): output
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Shape Calculations}
+Let:
+\begin{itemize}
+    \item Input shape: \( (T, n_x) \)
+    \item Hidden state size: \( n_h \)
+    \item Output size: \( n_y \)
+\end{itemize}
+Then:
+\begin{itemize}
+    \item \( W_x \in \mathbb{R}^{n_h \times n_x} \)
+    \item \( W_h \in \mathbb{R}^{n_h \times n_h} \)
+    \item \( W_y \in \mathbb{R}^{n_y \times n_h} \)
+\end{itemize}
+\end{frame}
+
+% --- Learning and Backprop ---
+\section{Training RNNs}
+\begin{frame}{Backpropagation Through Time (BPTT)}
+Gradients are computed over all time steps:
+\[
+\frac{\partial L}{\partial W} = \sum_{t=1}^T \frac{\partial L}{\partial h_t} \cdot \frac{\partial h_t}{\partial W}
+\]
+\begin{itemize}
+    \item Computationally expensive for long sequences
+    \item Suffers from vanishing/exploding gradients
+\end{itemize}
+\end{frame}
+
+\begin{frame}{RNN Limitations}
+\begin{itemize}
+    \item \textbf{Vanishing gradients}: long-term dependencies hard to learn
+    \item \textbf{Exploding gradients}: unstable training
+    \item \textbf{Short memory}: can't retain info over long sequences
+\end{itemize}
+\end{frame}
+
+% --- Variants ---
+\section{Variants of RNNs}
+\begin{frame}{Variants of RNNs}
+\begin{itemize}
+    \item \textbf{LSTM (Long Short-Term Memory)}:
+        \begin{itemize}
+            \item Uses gates to control information flow
+            \item Remembers information over longer periods
+        \end{itemize}
+    \item \textbf{GRU (Gated Recurrent Unit)}:
+        \begin{itemize}
+            \item Simplified LSTM
+            \item Fewer parameters, faster training
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{When to Use LSTM or GRU}
+\begin{itemize}
+    \item Use LSTM for long sequences with complex dependencies
+    \item Use GRU for faster training with decent performance
+    \item Start simple, benchmark both
+\end{itemize}
+\end{frame}
+
+% --- Applications ---
+\section{Applications}
+\begin{frame}{Applications of RNNs}
+\begin{itemize}
+    \item Language modeling
+    \item Machine translation
+    \item Speech recognition
+    \item Music generation
+    \item Time series forecasting
+\end{itemize}
+\end{frame}
+
+% --- Summary ---
+\section{Summary}
+\begin{frame}{Key Concepts Recap}
+\begin{itemize}
+    \item RNNs process sequences step-by-step
+    \item Hidden states capture memory
+    \item Training uses backpropagation through time
+    \item LSTM and GRU address gradient issues
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you! \\
+    Questions?
+\end{frame}
+
+\end{document}

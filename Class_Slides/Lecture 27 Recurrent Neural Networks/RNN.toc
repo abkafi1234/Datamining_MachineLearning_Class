@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{What are RNNs?}{3}{0}{1}
+\beamer@sectionintoc {2}{RNN Mechanics}{6}{0}{2}
+\beamer@sectionintoc {3}{Training RNNs}{9}{0}{3}
+\beamer@sectionintoc {4}{Variants of RNNs}{12}{0}{4}
+\beamer@sectionintoc {5}{Applications}{15}{0}{5}
+\beamer@sectionintoc {6}{Summary}{17}{0}{6}

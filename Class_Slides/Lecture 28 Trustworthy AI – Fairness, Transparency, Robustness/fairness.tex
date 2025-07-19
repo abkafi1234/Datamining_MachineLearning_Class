@@ -1,0 +1,175 @@
+\documentclass{beamer}
+\usetheme{metropolis}
+
+\usepackage{amsmath, amsfonts}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Trustworthy AI}
+\subtitle{Fairness, Transparency, and Robustness}
+\date{July 19, 2025}
+
+\begin{document}
+
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny}
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% --- Intro ---
+\section{Introduction}
+\begin{frame}{Why Trustworthy AI?}
+As AI becomes widespread, we must ensure it is:
+\begin{itemize}
+    \item Fair — avoids discrimination
+    \item Transparent — understandable and explainable
+    \item Robust — secure and resilient to failures
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Core Pillars}
+Trustworthy AI is guided by 3 major principles:
+\begin{enumerate}
+    \item \textbf{Fairness}
+    \item \textbf{Transparency (Explainability)}
+    \item \textbf{Robustness (Safety \& Security)}
+\end{enumerate}
+\end{frame}
+
+% --- Fairness ---
+\section{Fairness}
+\begin{frame}{What is Fairness in AI?}
+An AI system is fair if it does not produce discriminatory outcomes against individuals or groups based on:
+\begin{itemize}
+    \item Race, gender, age, religion
+    \item Sensitive or protected attributes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fairness Metrics}
+Let \( A \) be a sensitive attribute and \( \hat{Y} \) the predicted label.
+
+\textbf{Demographic Parity:}
+\[
+P(\hat{Y} = 1 | A = 0) = P(\hat{Y} = 1 | A = 1)
+\]
+
+\textbf{Equalized Odds:}
+\[
+P(\hat{Y} = 1 | A = a, Y = y) \text{ should be equal for all } a
+\]
+
+\textbf{Individual Fairness:}
+\[
+\text{Similar individuals } \Rightarrow \text{ similar predictions}
+\]
+\end{frame}
+
+\begin{frame}{Fairness Trade-offs}
+\begin{itemize}
+    \item Trade-offs exist between fairness and accuracy
+    \item Achieving all fairness metrics at once is often impossible
+    \item Context-specific fairness definitions must be selected
+\end{itemize}
+\end{frame}
+
+% --- Transparency ---
+\section{Transparency}
+\begin{frame}{Why Transparency?}
+\begin{itemize}
+    \item Stakeholders must understand how AI makes decisions
+    \item Lack of transparency reduces trust
+    \item Enables accountability and debugging
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Types of Explainability}
+\begin{itemize}
+    \item \textbf{Global explanations}: model-level understanding
+    \item \textbf{Local explanations}: explain individual predictions
+    \item \textbf{Post-hoc}: use external tools (e.g., LIME, SHAP)
+    \item \textbf{Interpretable models}: inherently simple (e.g., decision trees)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interpretable vs Black-box Models}
+\footnotesize
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Model Type} & \textbf{Interpretability} & \textbf{Examples} \\
+\midrule
+Linear Models & High & Logistic Regression \\
+Decision Trees & High & CART, C4.5 \\
+Neural Nets & Low & CNNs, RNNs \\
+Ensembles & Low & Random Forest, XGBoost \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+% --- Robustness ---
+\section{Robustness}
+\begin{frame}{What is Robustness?}
+\textbf{Robustness} refers to an AI system's ability to remain:
+\begin{itemize}
+    \item Accurate under noisy, adversarial, or out-of-distribution inputs
+    \item Stable when small changes are made to input
+    \item Resilient against manipulation and attacks
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Types of Robustness}
+\begin{itemize}
+    \item \textbf{Adversarial robustness} — resisting malicious perturbations
+    \item \textbf{Distributional shift} — generalizing to new data domains
+    \item \textbf{Resilience to missing/noisy data}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Simple Adversarial Example}
+Let \( x \) be an image input and \( \hat{y} = f(x) \).  
+We add perturbation \( \delta \), where \( \|\delta\| \) is small:
+
+\[
+\hat{y} = f(x), \quad \hat{y}' = f(x + \delta), \quad \hat{y} \ne \hat{y}'
+\]
+
+\begin{itemize}
+    \item Model prediction flips even with imperceptible change
+    \item Needs robust training to defend
+\end{itemize}
+\end{frame}
+
+% --- Best Practices ---
+\section{Best Practices}
+\begin{frame}{Best Practices for Trustworthy AI}
+\begin{itemize}
+    \item Use interpretable models when possible
+    \item Audit datasets for bias
+    \item Evaluate fairness using metrics
+    \item Perform robustness testing (e.g., adversarial attacks)
+    \item Document model behavior clearly
+\end{itemize}
+\end{frame}
+
+% --- Summary ---
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Trustworthy AI ensures fairness, transparency, robustness
+    \item Must balance ethical principles with performance
+    \item Requires tools, metrics, and careful design
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you! \\
+    Questions?
+\end{frame}
+
+\end{document}

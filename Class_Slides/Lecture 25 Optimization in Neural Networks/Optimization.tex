@@ -1,0 +1,189 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Optimization in Neural Networks}
+\subtitle{How do neural networks learn?}
+\date{July 19, 2025}
+
+\begin{document}
+
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% --- Why Optimization ---
+\section{Why Optimization?}
+\begin{frame}{Why Optimization in Neural Networks?}
+Optimization is the process of minimizing a loss function by adjusting the model's parameters.
+\begin{itemize}
+    \item Allows neural networks to learn patterns from data
+    \item Uses gradients to guide parameter updates
+    \item Goal: Find parameter values that minimize the loss function
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Loss Function Examples}
+\textbf{Mean Squared Error (MSE):}
+\[
+\text{MSE} = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2
+\]
+
+\textbf{Cross-Entropy Loss:}
+\[
+\text{CE} = -\sum_i y_i \log(\hat{y}_i)
+\]
+\begin{itemize}
+    \item MSE is used in regression
+    \item Cross-entropy is used in classification
+\end{itemize}
+\end{frame}
+
+% --- Gradient Descent Basics ---
+\section{Gradient Descent}
+\begin{frame}{Gradient Descent: Core Idea}
+Gradient Descent iteratively updates parameters in the direction of the negative gradient.
+\[
+w := w - \eta \cdot \nabla L(w)
+\]
+\begin{itemize}
+    \item \( \eta \): Learning rate
+    \item \( \nabla L(w) \): Gradient of loss with respect to parameters
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Types of Gradient Descent}
+\begin{itemize}
+    \item \textbf{Batch Gradient Descent}: Uses entire dataset
+    \item \textbf{Stochastic Gradient Descent (SGD)}: One sample at a time
+    \item \textbf{Mini-batch Gradient Descent}: Uses a subset (e.g., 32 samples)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{GD Variant Comparison}
+\footnotesize
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Type} & \textbf{Pros} & \textbf{Cons} \\
+\midrule
+Batch & Stable convergence & Computationally expensive \\
+SGD & Fast, online learning & Noisy updates \\
+Mini-batch & Balanced speed & Requires tuning batch size \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+% --- Optimizer Algorithms ---
+\section{Popular Optimizers}
+\begin{frame}{SGD with Momentum}
+Momentum adds velocity to help accelerate convergence:
+\[
+v_t = \beta v_{t-1} + \eta \nabla L(w), \quad w := w - v_t
+\]
+\begin{itemize}
+    \item \( \beta \): Momentum coefficient (e.g., 0.9)
+    \item Helps escape saddle points and oscillations
+\end{itemize}
+\end{frame}
+
+\begin{frame}{RMSProp}
+Adapts learning rate for each parameter:
+\[
+E[g^2]_t = \gamma E[g^2]_{t-1} + (1-\gamma)g_t^2
+\]
+\[
+w := w - \frac{\eta}{\sqrt{E[g^2]_t + \epsilon}} \cdot g_t
+\]
+\begin{itemize}
+    \item Good for RNNs
+    \item Controls exploding gradients
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Adam Optimizer}
+Combines momentum and RMSProp:
+\[
+m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t
+\]
+\[
+v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
+\]
+\[
+\hat{m}_t = \frac{m_t}{1 - \beta_1^t},\quad
+\hat{v}_t = \frac{v_t}{1 - \beta_2^t}
+\]
+\[
+w := w - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \cdot \hat{m}_t
+\]
+\end{frame}
+
+\begin{frame}{Optimizer Comparison}
+\footnotesize
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Optimizer} & \textbf{Pros} & \textbf{Cons} & \textbf{Use Case} \\
+\midrule
+SGD & Simple, low memory & Slow convergence & General baseline \\
+Momentum & Escapes local minima & Needs tuning & Deep nets \\
+RMSProp & Stable updates & Sensitive to hyperparams & RNNs \\
+Adam & Fast, adaptive & May overfit & Most models \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+% --- Challenges ---
+\section{Challenges in Optimization}
+\begin{frame}{Optimization Challenges}
+\begin{itemize}
+    \item \textbf{Saddle Points} slow down learning
+    \item \textbf{Vanishing/Exploding Gradients} in deep nets
+    \item \textbf{Overfitting}: Excessive optimization on training data
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Learning Rate Schedules}
+\begin{itemize}
+    \item \textbf{Step decay}: Reduce \( \eta \) after fixed steps
+    \item \textbf{Exponential decay}: Multiply \( \eta \) each epoch
+    \item \textbf{Reduce on plateau}: Monitor validation loss
+\end{itemize}
+\end{frame}
+
+% --- Best Practices ---
+\section{Best Practices}
+\begin{frame}{Tips \& Best Practices}
+\begin{itemize}
+    \item Start with Adam, tune learning rate
+    \item Use mini-batches and validation sets
+    \item Monitor training and validation loss
+    \item Use TensorBoard or similar tools
+\end{itemize}
+\end{frame}
+
+% --- Recap ---
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Optimization drives learning in neural networks
+    \item Gradient descent is foundational
+    \item Adam optimizer is robust and widely used
+    \item Always validate, tune, and monitor
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you! \\
+    Questions?
+\end{frame}
+
+\end{document}

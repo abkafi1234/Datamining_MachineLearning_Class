@@ -1,0 +1,197 @@
+\documentclass{beamer}
+\usetheme{metropolis} % Clean modern look
+
+\usepackage{amsmath, amsfonts}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Convolutional Neural Networks}
+\subtitle{Understanding CNNs from Basics}
+\date{July 19, 2025}
+
+\begin{document}
+
+{
+\setbeamertemplate{frame footer}{\href{https://github.com/abkafi1234/Datamining_MachineLearning_Class/tree/main/Class_Slides}{Report Error}}
+\setbeamerfont{frame footer}{size=\tiny} 
+\begin{frame}
+    \titlepage
+\end{frame}
+}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% --- What is CNN ---
+\section{What is a CNN?}
+\begin{frame}{What is a Convolutional Neural Network?}
+CNNs are a class of deep learning models primarily used for image, video, and spatial data.
+\begin{itemize}
+    \item Automatically extract spatial features using filters
+    \item Replaces manual feature extraction
+    \item Efficient in capturing spatial hierarchies
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why Use CNNs?}
+\begin{itemize}
+    \item Fully connected networks do not scale well for image data
+    \item CNNs preserve spatial locality using convolution
+    \item Fewer parameters, shared weights
+    \item Effective in object detection, segmentation, and classification
+\end{itemize}
+\end{frame}
+
+% --- Convolution Operation ---
+\section{Convolution Layer}
+\begin{frame}{What is Convolution?}
+\textbf{Convolution} is a weighted sum of inputs in a local region.
+\begin{itemize}
+    \item Applies a small filter (kernel) over the input
+    \item Captures local features like edges, textures
+    \item Parameters are shared across spatial locations
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Convolution Math}
+Let:
+\begin{itemize}
+    \item Input: \( I \in \mathbb{R}^{H \times W} \)
+    \item Kernel: \( K \in \mathbb{R}^{k \times k} \)
+\end{itemize}
+Then, output at position \( (i, j) \) is:
+\[
+S(i, j) = \sum_{m=0}^{k-1} \sum_{n=0}^{k-1} I(i+m, j+n) \cdot K(m, n)
+\]
+\end{frame}
+
+\begin{frame}{Output Shape Formula}
+Given:
+\begin{itemize}
+    \item Input size: \( H_{in} \times W_{in} \)
+    \item Kernel size: \( K \)
+    \item Padding: \( P \)
+    \item Stride: \( S \)
+\end{itemize}
+Then:
+\[
+H_{out} = \left\lfloor \frac{H_{in} + 2P - K}{S} + 1 \right\rfloor
+\quad
+W_{out} = \left\lfloor \frac{W_{in} + 2P - K}{S} + 1 \right\rfloor
+\]
+\end{frame}
+
+\begin{frame}{Example: Output Size}
+\begin{itemize}
+    \item Input: \( 32 \times 32 \)
+    \item Kernel: \( 5 \times 5 \)
+    \item Stride: 1, Padding: 0
+\end{itemize}
+\[
+H_{out} = \frac{32 - 5}{1} + 1 = 28,\quad
+W_{out} = \frac{32 - 5}{1} + 1 = 28
+\]
+\textit{Output size: \( 28 \times 28 \)}
+\end{frame}
+
+% --- Padding and Stride ---
+\section{Padding and Stride}
+\begin{frame}{What is Padding?}
+\begin{itemize}
+    \item Adds border around the input
+    \item Keeps output the same size (when needed)
+    \item Common types: 'valid' (no padding), 'same' (pad to preserve size)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is Stride?}
+\begin{itemize}
+    \item Number of pixels the filter moves per step
+    \item Stride > 1 reduces output size
+    \item Acts like downsampling
+\end{itemize}
+\end{frame}
+
+% --- Activation + Pooling ---
+\section{Activation and Pooling}
+\begin{frame}{Activation Function}
+\textbf{ReLU (Rectified Linear Unit)} is most commonly used:
+\[
+f(x) = \max(0, x)
+\]
+\begin{itemize}
+    \item Introduces non-linearity
+    \item Helps prevent vanishing gradients
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pooling Layers}
+\textbf{Max Pooling} and \textbf{Average Pooling} reduce spatial dimensions.
+\begin{itemize}
+    \item Aggregates regions to smaller representation
+    \item Reduces computation, controls overfitting
+\end{itemize}
+Example:
+\begin{itemize}
+    \item Input: \( 4 \times 4 \), Pool: \( 2 \times 2 \), Stride: 2
+    \item Output: \( 2 \times 2 \)
+\end{itemize}
+\end{frame}
+
+% --- Architecture ---
+\section{CNN Architecture}
+\begin{frame}{Typical CNN Architecture}
+\begin{itemize}
+    \item Input Layer (e.g., image)
+    \item Convolution → ReLU → Pooling
+    \item Repeat above layers
+    \item Flatten → Fully Connected Layer(s)
+    \item Output Layer (Softmax or Sigmoid)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Parameter Sharing and Sparsity}
+\begin{itemize}
+    \item Each filter scans entire image but uses same weights
+    \item Fewer parameters than fully connected layers
+    \item Efficient training and less overfitting
+\end{itemize}
+\end{frame}
+
+% --- Use Cases ---
+\section{Use Cases}
+\begin{frame}{Applications of CNNs}
+\begin{itemize}
+    \item Image classification (e.g., CIFAR-10, ImageNet)
+    \item Object detection (YOLO, Faster R-CNN)
+    \item Face recognition and biometrics
+    \item Medical image analysis
+    \item NLP (e.g., text classification with 1D CNNs)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Benefits of CNNs}
+\begin{itemize}
+    \item Captures spatial features automatically
+    \item Good generalization with less data
+    \item State-of-the-art for image-based tasks
+\end{itemize}
+\end{frame}
+
+% --- Summary ---
+\begin{frame}{Key Concepts Recap}
+\begin{itemize}
+    \item Convolution: Local feature detection
+    \item Pooling: Dimensionality reduction
+    \item ReLU: Non-linearity
+    \item CNNs are efficient for structured data like images
+\end{itemize}
+\end{frame}
+
+\begin{frame}[standout]
+    Thank you! \\
+    Questions?
+\end{frame}
+
+\end{document}
